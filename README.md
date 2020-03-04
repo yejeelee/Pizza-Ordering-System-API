@@ -1,5 +1,8 @@
 # Pizza Paradise
 
+Team of Three: Clara, Jada, Jenny
+
+
 This repository contains code for the Pizza Paradise API, an API that supports a pizza store. The API can be viewed live on the
 [user interface](https://pizza-paradise.herokuapp.com/swagger-ui.html). 
 
