@@ -1,6 +1,6 @@
 # Pizza Paradise
 
-Team of Three: Clara, Jada, Jenny
+Team of Three: Clara, Jada, YeJee Jenny Lee
 
 
 This repository contains code for the Pizza Paradise API, an API that supports a pizza store. The API can be viewed live on the
