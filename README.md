@@ -38,3 +38,6 @@ A summary of the entire project may be viewed on the
     2. Download/import a [copy of the project](https://creator.voiceflow.com/dashboard?import=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOjczNTYxLCJwcm9qZWN0TmFtZSI6IlBpenphIFBhcmFkaXNlIEFQSSIsImlhdCI6MTU3NTUwNTE4Nn0.nfzP7jzWdev0-mjf6vPVt6NrL9h3ZWvPhB37jjkns-s)
     3. Test the skill in Voice flow or click Upload to Alexa to test in the Alexa Developer console
     
+#### Using Github as a team
+
+![PR](made-PR.png)
