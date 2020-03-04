@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DBSideItems.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger</a> &gt; <span class="el_source">DBSideItems.java</span></div><h1>DBSideItems.java</h1><pre class="source lang-java linenums">package io.swagger;
+
+import io.swagger.model.SideItem;
+
+/**
+ * StoreItems to be added to database.
+ */
+<span class="nc" id="L8">public class DBSideItems {</span>
+  // Appetizers
+<span class="fc" id="L10">  public static final SideItem BREADSTICKS = new SideItem(&quot;breadsticks&quot;,</span>
+<span class="fc" id="L11">      &quot;breadsticks&quot;, 5.99, &quot;appetizer&quot;);</span>
+<span class="fc" id="L12">  public static final SideItem CHEESE_STICKS = new SideItem(&quot;cheeseSticks&quot;,</span>
+<span class="fc" id="L13">      &quot;cheese sticks&quot;, 6.99, &quot;appetizer&quot;);</span>
+<span class="fc" id="L14">  public static final SideItem BARBECUE_WINGS = new SideItem(&quot;barbecueWings&quot;,</span>
+<span class="fc" id="L15">      &quot;barbecue wings&quot;, 7.99, &quot;appetizer&quot;);</span>
+<span class="fc" id="L16">  public static final SideItem HOT_WINGS = new SideItem(&quot;hotWings&quot;,</span>
+<span class="fc" id="L17">      &quot;hot wings&quot;, 7.99, &quot;appetizer&quot;);</span>
+<span class="fc" id="L18">  public static final SideItem UNSAUCED_WINGS = new SideItem(&quot;unsaucedWings&quot;,</span>
+<span class="fc" id="L19">      &quot;unsauced wings&quot;, 6.99, &quot;appetizer&quot;);</span>
+  // Condiments
+<span class="fc" id="L21">  public static final SideItem BARBECUE_SAUCE = new SideItem(&quot;barbecueSauce&quot;,</span>
+<span class="fc" id="L22">      &quot;barbecue sauce&quot;, 0.49, &quot;condiment&quot;);</span>
+<span class="fc" id="L23">  public static final SideItem HOT_SAUCE = new SideItem(&quot;hotSauce&quot;,</span>
+<span class="fc" id="L24">      &quot;hot sauce&quot;, 0.49, &quot;condiment&quot;);</span>
+<span class="fc" id="L25">  public static final SideItem MARINARA_SAUCE = new SideItem(&quot;marinaraSauce&quot;,</span>
+<span class="fc" id="L26">      &quot;marinara sauce&quot;, 0.49, &quot;condiment&quot;);</span>
+<span class="fc" id="L27">  public static final SideItem RANCH_SAUCE = new SideItem(&quot;ranchSauce&quot;,</span>
+<span class="fc" id="L28">      &quot;ranch sauce&quot;, 0.49, &quot;condiment&quot;);</span>
+<span class="fc" id="L29">  public static final SideItem GRATED_CHEESE = new SideItem(&quot;gratedCheese&quot;,</span>
+<span class="fc" id="L30">      &quot;grated Parmesan cheese&quot;, 0.25, &quot;condiment&quot;);</span>
+<span class="fc" id="L31">  public static final SideItem RED_PEPPER_FLAKES = new SideItem(&quot;redPepperFlakes&quot;,</span>
+<span class="fc" id="L32">      &quot;red pepper flakes&quot;, 0.25, &quot;condiment&quot;);</span>
+  // Desserts
+<span class="fc" id="L34">  public static final SideItem BROWNIE = new SideItem(&quot;brownie&quot;,</span>
+<span class="fc" id="L35">      &quot;brownie&quot;, 2.49, &quot;dessert&quot;);</span>
+<span class="fc" id="L36">  public static final SideItem CHOCOLATE_CHIP_COOKIE = new SideItem(&quot;chocolateChipCookie&quot;,</span>
+<span class="fc" id="L37">      &quot;chocolate chip cookie&quot;, 1.99, &quot;dessert&quot;);</span>
+  // Drinks
+<span class="fc" id="L39">  public static final SideItem BIG_COKE = new SideItem(&quot;2LiterCoke&quot;,</span>
+<span class="fc" id="L40">      &quot;2 liter Coke&quot;, 2.49, &quot;drink&quot;);</span>
+<span class="fc" id="L41">  public static final SideItem BIG_WATER = new SideItem(&quot;2LiterWater&quot;,</span>
+<span class="fc" id="L42">      &quot;2 liter Glaceau Smartwater&quot;, 2.49, &quot;drink&quot;);</span>
+<span class="fc" id="L43">  public static final SideItem BIG_PEACH_CRUSH = new SideItem(&quot;2LiterPeachCrush&quot;,</span>
+<span class="fc" id="L44">      &quot;2 liter Peach Crush&quot;, 2.49, &quot;drink&quot;);</span>
+<span class="fc" id="L45">  public static final SideItem BIG_SPRITE = new SideItem(&quot;2LiterSprite&quot;,</span>
+<span class="fc" id="L46">      &quot;2 liter Sprite&quot;, 2.49, &quot;drink&quot;);</span>
+<span class="fc" id="L47">  public static final SideItem SMALL_COKE = new SideItem(&quot;16OzCoke&quot;,</span>
+<span class="fc" id="L48">      &quot;16 oz Coke&quot;, 1.49, &quot;drink&quot;);</span>
+<span class="fc" id="L49">  public static final SideItem SMALL_WATER = new SideItem(&quot;16OzWater&quot;,</span>
+<span class="fc" id="L50">      &quot;16 oz Glaceau Smartwater&quot;, 1.49, &quot;drink&quot;);</span>
+<span class="fc" id="L51">  public static final SideItem SMALL_PEACH_CRUSH = new SideItem(&quot;16OzPeachCrush&quot;,</span>
+<span class="fc" id="L52">      &quot;16 oz Peach Crush&quot;, 1.49, &quot;drink&quot;);</span>
+<span class="fc" id="L53">  public static final SideItem SMALL_SPRITE = new SideItem(&quot;16OzSprite&quot;,</span>
+<span class="fc" id="L54">      &quot;16 oz Sprite&quot;, 1.49, &quot;drink&quot;);</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

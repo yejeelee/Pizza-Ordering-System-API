@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PizzaSuggestionResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">PizzaSuggestionResponse.java</span></div><h1>PizzaSuggestionResponse.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/** Pizza Suggestion Response */
+public class PizzaSuggestionResponse {
+
+  @JsonProperty(&quot;large&quot;)
+  private Integer large;
+
+  @JsonProperty(&quot;medium&quot;)
+  private Integer medium;
+
+  @JsonProperty(&quot;small&quot;)
+  private Integer small;
+
+  /**
+   * Construct a new PizzaSuggestionResponse.
+   *
+   * @param small the number of small pizzas suggested.
+   * @param medium the number of medium pizzas suggested.
+   * @param large the number of large pizzas suggested.
+   */
+<span class="fc" id="L24">  public PizzaSuggestionResponse(Integer small, Integer medium, Integer large) {</span>
+<span class="fc" id="L25">    this.large = large;</span>
+<span class="fc" id="L26">    this.medium = medium;</span>
+<span class="fc" id="L27">    this.small = small;</span>
+<span class="fc" id="L28">  }</span>
+
+  /** @return the number of small pizzas suggested. */
+  public Integer getSmall() {
+<span class="fc" id="L32">    return this.small;</span>
+  }
+
+  /** @return the number of medium pizzas suggested. */
+  public Integer getMedium() {
+<span class="fc" id="L37">    return this.medium;</span>
+  }
+
+  /** @return the number of large pizzas suggested. */
+  public Integer getLarge() {
+<span class="fc" id="L42">    return this.large;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CartAddResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">CartAddResponse.java</span></div><h1>CartAddResponse.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+
+/** Cart Add Response */
+public class CartAddResponse {
+
+  @JsonProperty(&quot;Success&quot;)
+  private boolean success;
+
+  @JsonProperty(&quot;Pizza&quot;)
+  private Pizza pizza;
+
+  @JsonProperty(&quot;Side&quot;)
+  private SideItem side;
+
+  @JsonProperty(&quot;CartID&quot;)
+  private String cartID;
+
+  @JsonProperty(&quot;StoreID&quot;)
+  private String storeID;
+
+  @JsonProperty(&quot;Message&quot;)
+  private String message;
+
+  /**
+   * Construct a new CartAddResponse for pizza.
+   *
+   * @param pizza pizza added to Cart.
+   * @param cartID cartId to show where it was saved.
+   * @param storeID storeId to show where it was saved.
+   */
+<span class="fc" id="L34">  public CartAddResponse(Pizza pizza, String cartID, String storeID) {</span>
+<span class="fc" id="L35">    this.success = true;</span>
+<span class="fc" id="L36">    this.cartID = cartID;</span>
+<span class="fc" id="L37">    this.storeID = storeID;</span>
+<span class="fc" id="L38">    this.pizza = pizza;</span>
+<span class="fc" id="L39">    this.side = null;</span>
+<span class="fc" id="L40">    this.message = null;</span>
+<span class="fc" id="L41">  }</span>
+
+  /**
+   * Construct a new CartAddResponse for side.
+   *
+   * @param side side added to Cart.
+   * @param cartID cartId to show where it was saved.
+   * @param storeID storeId to show where it was saved.
+   */
+<span class="fc" id="L50">  public CartAddResponse(SideItem side, String cartID, String storeID) {</span>
+<span class="fc" id="L51">    this.success = true;</span>
+<span class="fc" id="L52">    this.cartID = cartID;</span>
+<span class="fc" id="L53">    this.storeID = storeID;</span>
+<span class="fc" id="L54">    this.pizza = null;</span>
+<span class="fc" id="L55">    this.side = side;</span>
+<span class="fc" id="L56">    this.message = null;</span>
+<span class="fc" id="L57">  }</span>
+
+  /**
+   * Construct a failed CartAddResponse.
+   *
+   * @param message the error message to show the user
+   */
+<span class="fc" id="L64">  public CartAddResponse(String message) {</span>
+<span class="fc" id="L65">    this.success = false;</span>
+<span class="fc" id="L66">    this.pizza = null;</span>
+<span class="fc" id="L67">    this.side = null;</span>
+<span class="fc" id="L68">    this.cartID = null;</span>
+<span class="fc" id="L69">    this.storeID = null;</span>
+<span class="fc" id="L70">    this.message = message;</span>
+<span class="fc" id="L71">  }</span>
+
+  /**
+   * Check if the CartAddResponse was successful.
+   *
+   * @return true if it was successful, false otherwise.
+   */
+  @ApiModelProperty(example = &quot;true&quot;)
+  public boolean getSuccess() {
+<span class="fc" id="L80">    return this.success;</span>
+  }
+
+  /**
+   * Get pizza of this CartAddResponse.
+   *
+   * @return pizza of this CartAddResponse.
+   */
+  public Pizza getPizza() {
+<span class="fc" id="L89">    return this.pizza;</span>
+  }
+
+  /**
+   * Get side of this CartAddResponse.
+   *
+   * @return side of this CartAddResponse.
+   */
+  public SideItem getSide() {
+<span class="fc" id="L98">    return this.side;</span>
+  }
+
+  /**
+   * Get CartId of this CartAddResponse.
+   *
+   * @return CartId the destination where items are saved.
+   */
+  @ApiModelProperty(example = &quot;5dd325ad5793784ecfe1b74c&quot;)
+  public String getCartID() {
+<span class="fc" id="L108">    return this.cartID;</span>
+  }
+
+  /**
+   * Get StoreId of this CartAddResponse.
+   *
+   * @return storeId the destination where items are saved.
+   */
+  @ApiModelProperty(example = &quot;eastlake&quot;)
+  public String getStoreID() {
+<span class="fc" id="L118">    return this.storeID;</span>
+  }
+
+  /**
+   * Get the message of this CartAddResponse.
+   *
+   * @return message to show if it was successful or failed.
+   */
+  public String getMessage() {
+<span class="fc" id="L127">    return this.message;</span>
+  }
+
+  /**
+   * String representation of this CartAddResponse.
+   *
+   * @return a String representation of this CartAddResponse
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L137">    return &quot;CartAddResponse{&quot;</span>
+        + &quot;success=&quot;
+        + this.success
+        + &quot;, cartId=&quot;
+        + this.cartID
+        + &quot;, storeID=&quot;
+        + this.storeID
+        + &quot;, pizza=&quot;
+        + this.pizza
+        + &quot;, side=&quot;
+        + this.side
+        + &quot;, message=&quot;
+        + this.message
+        + &quot;}&quot;;
+  }
+
+  /**
+   * Check if two objects are equal.
+   *
+   * @param obj object given for comparison
+   * @return true if two objects are equal, false otherwise.
+   */
+  @Override
+  public boolean equals(Object obj) {
+<span class="fc bfc" id="L161" title="All 2 branches covered.">    if (this == obj) {</span>
+<span class="fc" id="L162">      return true;</span>
+    }
+<span class="pc bpc" id="L164" title="2 of 4 branches missed.">    if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="nc" id="L165">      return false;</span>
+    }
+<span class="fc" id="L167">    CartAddResponse object = (CartAddResponse) obj;</span>
+<span class="fc bfc" id="L168" title="All 4 branches covered.">    return this.success == object.getSuccess()</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">        &amp;&amp; ((this.cartID == null &amp;&amp; object.getCartID() == null)</span>
+<span class="fc bfc" id="L170" title="All 4 branches covered.">            || this.cartID.equals(object.getCartID()))</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        &amp;&amp; ((this.pizza == null &amp;&amp; object.getPizza() == null)</span>
+<span class="fc bfc" id="L172" title="All 4 branches covered.">            || this.pizza.equals(object.getPizza()))</span>
+<span class="pc bpc" id="L173" title="1 of 6 branches missed.">        &amp;&amp; ((this.side == null &amp;&amp; object.getSide() == null) || this.side.equals(object.getSide()))</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">        &amp;&amp; ((this.storeID == null &amp;&amp; object.getStoreID() == null)</span>
+<span class="fc bfc" id="L175" title="All 4 branches covered.">            || this.storeID.equals(object.getStoreID()))</span>
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">        &amp;&amp; ((this.message == null &amp;&amp; object.getMessage() == null)</span>
+<span class="fc bfc" id="L177" title="All 2 branches covered.">            || this.message.equals(object.getMessage()));</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

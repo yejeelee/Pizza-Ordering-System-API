@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApplySpecialService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.service</a> &gt; <span class="el_source">ApplySpecialService.java</span></div><h1>ApplySpecialService.java</h1><pre class="source lang-java linenums">package io.swagger.service;
+
+import io.swagger.Message;
+import io.swagger.exceptions.ToppingNotFoundException;
+import io.swagger.model.ApplySpecialResponse;
+import io.swagger.model.Cart;
+import io.swagger.model.Pizza;
+import io.swagger.model.SideItem;
+import io.swagger.repository.CartRepository;
+import io.swagger.repository.SpecialItemRepository;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/** Service for the Store API */
+@Service
+<span class="fc" id="L18">public class ApplySpecialService {</span>
+  private static final String DISCOUNT_30_PERCENT = &quot;buy2LargePizzaNoTopping&quot;;
+  private static final String FREE_PIZZA = &quot;buy1Get1Free&quot;;
+  private static final String FREE_SODA = &quot;buy1PizzaGetSodaFree&quot;;
+
+  @Autowired private CartRepository cartRepository;
+
+  @Autowired private SpecialItemRepository specialItemRepository;
+
+  @Autowired private CartService cartService;
+
+  @Autowired private SideService sideService;
+
+  @Autowired private PizzaService pizzaService;
+
+  /**
+   * Apply the specified special to the given store and cart.
+   *
+   * @param specialId id of the special being requested
+   * @param storeId id of the store that the cart belongs to
+   * @param cartId id of the cart receiving the special
+   * @throws Exception through applyBuy1Get1Special()'s getPizzaPrice() if invalid topping
+   */
+  public ApplySpecialResponse applySpecial(String specialId, String storeId, String cartId) {
+<span class="nc" id="L42">    Cart cart = cartService.getCartItemsById(storeId, cartId);</span>
+
+    // Check if valid special, if cart is at store, and if special has been applied to cart.
+<span class="nc bnc" id="L45" title="All 2 branches missed.">    if (!checkSpecial(specialId)) {</span>
+<span class="nc" id="L46">      return null;</span>
+    }
+
+<span class="nc bnc" id="L49" title="All 2 branches missed.">    if (!checkCartAtStore(cartId, storeId)) {</span>
+<span class="nc" id="L50">      return null;</span>
+    }
+
+<span class="nc bnc" id="L53" title="All 2 branches missed.">    if (cart.isSpecialApplied()) {</span>
+<span class="nc" id="L54">      return null;</span>
+    }
+
+<span class="nc bnc" id="L57" title="All 4 branches missed.">    switch (specialId) {</span>
+      case FREE_PIZZA:
+<span class="nc" id="L59">        return applyBuy1Get1Special(storeId, cartId);</span>
+      case DISCOUNT_30_PERCENT:
+<span class="nc" id="L61">        return apply30PercentOffSpecial(storeId, cartId);</span>
+      case FREE_SODA:
+<span class="nc" id="L63">        return applyFreeSodaSpecial(storeId, cartId);</span>
+      default:
+<span class="nc" id="L65">        return null;</span>
+    }
+  }
+
+  /**
+   * Helper to validate the given special id.
+   *
+   * @param specialId id of the special being requested
+   * @return {@code true} if the id is a valid special and {@code false} otherwise.
+   */
+  public boolean checkSpecial(String specialId) {
+<span class="nc" id="L76">    return specialItemRepository.existsById(specialId);</span>
+  }
+
+  /**
+   * Helper to validate the given cart id exists at the given store id.
+   *
+   * @param cartId id of the cart receiving the special
+   * @param storeId id of the store that the cart belongs to
+   * @return {@code true} if the cart exists at the particular store and {@code false} otherwise.
+   */
+  public boolean checkCartAtStore(String cartId, String storeId) {
+<span class="nc bnc" id="L87" title="All 2 branches missed.">    for (Cart cart : cartRepository.findAll()) {</span>
+<span class="nc bnc" id="L88" title="All 4 branches missed.">      if (cart.getId().equals(cartId) &amp;&amp; cart.getStoreID().equals(storeId)) {</span>
+<span class="nc" id="L89">        return true;</span>
+      }
+<span class="nc" id="L91">    }</span>
+<span class="nc" id="L92">    return false;</span>
+  }
+
+  /**
+   * Helper that ounds the given price to show only two
+   * @param price price to round
+   * @return price after it has been rounded
+   */
+  private Double roundTwoDigitsAfterDecimal(double price) {
+<span class="nc" id="L101">    price = Math.round(price * 100.00) / 100.00;</span>
+<span class="nc" id="L102">    return price;</span>
+  }
+
+  /**
+   * Makes the price of the second highest cost pizza free.
+   *
+   * @param storeId id of the store that the cart belongs to
+   * @param cartId id of the cart receiving the special
+   * @throws Exception through getPizzaPrice(Pizza pizza) if invalid topping.
+   */
+  public ApplySpecialResponse applyBuy1Get1Special(String storeId, String cartId) {
+<span class="nc" id="L113">    Cart cart = cartService.getCartItemsById(storeId, cartId);</span>
+<span class="nc" id="L114">    List&lt;Pizza&gt; pizzas = cart.getPizzas();</span>
+<span class="nc" id="L115">    Double highestCostPizzaPrice = 0.00;</span>
+<span class="nc" id="L116">    Double secondHighestCostPizzaPrice = 0.00;</span>
+
+    // Verify there are at least two pizzas in cart.
+<span class="nc bnc" id="L119" title="All 2 branches missed.">    if (pizzas.size() &lt; 2) {</span>
+<span class="nc" id="L120">      return new ApplySpecialResponse(Message.ERROR_FREE_PIZZA);</span>
+    }
+
+    // Find highest cost pizza.
+<span class="nc bnc" id="L124" title="All 2 branches missed.">    for (Pizza pizza : pizzas) {</span>
+      final Double pizzaPrice;
+      try {
+<span class="nc" id="L127">        pizzaPrice = pizzaService.getPizzaPrice(pizza);</span>
+<span class="nc" id="L128">      } catch (ToppingNotFoundException e) {</span>
+        // Should be unreachable if the cart is valid
+<span class="nc" id="L130">        throw new RuntimeException(e);</span>
+<span class="nc" id="L131">      }</span>
+
+<span class="nc bnc" id="L133" title="All 2 branches missed.">      if (pizzaPrice &gt; highestCostPizzaPrice) {</span>
+<span class="nc" id="L134">        secondHighestCostPizzaPrice = highestCostPizzaPrice;</span>
+<span class="nc" id="L135">        highestCostPizzaPrice = pizzaPrice;</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">      } else if (pizzaPrice &gt; secondHighestCostPizzaPrice) {</span>
+<span class="nc" id="L137">        secondHighestCostPizzaPrice = pizzaPrice;</span>
+      }
+<span class="nc" id="L139">    }</span>
+
+    // Reduce cart price by the price of the second highest cost pizza (which will now be free).
+<span class="nc" id="L142">    Double newCartPrice = cart.getTotalAmount() - secondHighestCostPizzaPrice;</span>
+<span class="nc" id="L143">    newCartPrice = roundTwoDigitsAfterDecimal(newCartPrice);</span>
+<span class="nc" id="L144">    cart.setTotalAmount(newCartPrice);</span>
+<span class="nc" id="L145">    cart.setSpecialApplied(true);</span>
+<span class="nc" id="L146">    cartRepository.save(cart);</span>
+
+<span class="nc" id="L148">    return new ApplySpecialResponse(FREE_PIZZA, secondHighestCostPizzaPrice);</span>
+  }
+
+  /**
+   * Applies 30% off cart price if cart has 2 large pizzas with no toppings.
+   *
+   * @param cartId Id of cart being checked for special
+   */
+  public ApplySpecialResponse apply30PercentOffSpecial(String storeId, String cartId) {
+<span class="nc" id="L157">    Cart cart = cartService.getCartItemsById(storeId, cartId);</span>
+<span class="nc" id="L158">    List&lt;Pizza&gt; pizzas = cart.getPizzas();</span>
+<span class="nc" id="L159">    List&lt;Pizza&gt; largePizzas = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L160">    Double oldCartPrice = cart.getTotalAmount();</span>
+    Double newCartPrice;
+<span class="nc" id="L162">    final Double thirtyPercentOff = 0.70;</span>
+<span class="nc" id="L163">    final String largePizza = &quot;large&quot;;</span>
+
+    // Put large toppingless pizzas in list.
+<span class="nc bnc" id="L166" title="All 2 branches missed.">    for (Pizza pizza : pizzas) {</span>
+<span class="nc bnc" id="L167" title="All 4 branches missed.">      if (pizza.getSizeID().equals(largePizza) &amp;&amp; pizza.getToppingIDs().size() == 0) {</span>
+<span class="nc" id="L168">        largePizzas.add(pizza);</span>
+      }
+<span class="nc" id="L170">    }</span>
+
+    // Verify there are at least two large pizzas with no toppings.
+<span class="nc bnc" id="L173" title="All 2 branches missed.">    if (largePizzas.size() &lt; 2) {</span>
+<span class="nc" id="L174">      return new ApplySpecialResponse(Message.ERROR_DISCOUNT_30_PERCENT);</span>
+    }
+
+    // Reduce price of cart by 30%.
+<span class="nc" id="L178">    newCartPrice = oldCartPrice * thirtyPercentOff;</span>
+<span class="nc" id="L179">    newCartPrice = roundTwoDigitsAfterDecimal(newCartPrice);</span>
+<span class="nc" id="L180">    Double savings = oldCartPrice - newCartPrice;</span>
+<span class="nc" id="L181">    savings = roundTwoDigitsAfterDecimal(savings);</span>
+<span class="nc" id="L182">    cart.setTotalAmount(newCartPrice);</span>
+<span class="nc" id="L183">    cart.setSpecialApplied(true);</span>
+<span class="nc" id="L184">    cartRepository.save(cart);</span>
+
+<span class="nc" id="L186">    return new ApplySpecialResponse(DISCOUNT_30_PERCENT, savings);</span>
+  }
+
+  /**
+   * Helper to determine if a list of SideItems contains a drink.
+   *
+   * @param sides list of side items
+   * @return {@code true} if the list contains a drink and {@code false} otherwise.
+   */
+  private boolean hasDrink(List&lt;String&gt; sides) {
+<span class="nc bnc" id="L196" title="All 2 branches missed.">    for (String sideId : sides) {</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">      if (sideService.getSideById(sideId).getType().equals(SideItem.TYPE_DRINK)) {</span>
+<span class="nc" id="L198">        return true;</span>
+      }
+<span class="nc" id="L200">    }</span>
+<span class="nc" id="L201">    return false;</span>
+  }
+
+  /**
+   * Makes the price of the highest cost drink free.
+   *
+   * @param cartId Id of cart being checked for special
+   */
+  public ApplySpecialResponse applyFreeSodaSpecial(String storeId, String cartId) {
+<span class="nc" id="L210">    Cart cart = cartService.getCartItemsById(storeId, cartId);</span>
+<span class="nc" id="L211">    List&lt;Pizza&gt; pizzas = cart.getPizzas();</span>
+<span class="nc" id="L212">    List&lt;String&gt; sides = cart.getSides();</span>
+<span class="nc" id="L213">    List&lt;String&gt; drinks = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L214">    Double oldCartPrice = cart.getTotalAmount();</span>
+<span class="nc" id="L215">    Double highestCostDrinkPrice = 0.00;</span>
+
+    // Verify that the cart contains at least one pizza and one drink.
+<span class="nc bnc" id="L218" title="All 4 branches missed.">    if (pizzas.size() &lt; 1 || !hasDrink(sides)) {</span>
+<span class="nc" id="L219">      return new ApplySpecialResponse(Message.ERROR_FREE_SODA);</span>
+    }
+
+    // Add drinks to a list.
+<span class="nc bnc" id="L223" title="All 2 branches missed.">    for (String sideId : sides) {</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">      if (sideService.getSideById(sideId).getType().equals(SideItem.TYPE_DRINK)) {</span>
+<span class="nc" id="L225">        drinks.add(sideId);</span>
+      }
+<span class="nc" id="L227">    }</span>
+
+    // Find highest cost drink.
+<span class="nc bnc" id="L230" title="All 2 branches missed.">    for (String drinkId : drinks) {</span>
+      // Find highest cost drink price
+<span class="nc" id="L232">      Double price = sideService.getSideById(drinkId).getPrice();</span>
+<span class="nc bnc" id="L233" title="All 2 branches missed.">      if (price &gt; highestCostDrinkPrice) {</span>
+<span class="nc" id="L234">        highestCostDrinkPrice = price;</span>
+      }
+<span class="nc" id="L236">    }</span>
+    // Reduce cart price by the price of the highest cost drink (which will now be free).
+<span class="nc" id="L238">    Double newCartPrice = oldCartPrice - highestCostDrinkPrice;</span>
+<span class="nc" id="L239">    newCartPrice = roundTwoDigitsAfterDecimal(newCartPrice);</span>
+<span class="nc" id="L240">    cart.setTotalAmount(newCartPrice);</span>
+<span class="nc" id="L241">    cart.setSpecialApplied(true);</span>
+<span class="nc" id="L242">    cartRepository.save(cart);</span>
+
+<span class="nc" id="L244">    return new ApplySpecialResponse(FREE_SODA, highestCostDrinkPrice);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

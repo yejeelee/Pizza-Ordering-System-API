@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SideApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.api</a> &gt; <span class="el_source">SideApiController.java</span></div><h1>SideApiController.java</h1><pre class="source lang-java linenums">package io.swagger.api;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.model.SideItem;
+import io.swagger.service.SideService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@RestController
+<span class="fc" id="L20">public class SideApiController implements SideApi {</span>
+
+  @Autowired private SideService sideService;
+
+  /** {@inheritDoc} HttpStatus.OK - if SideItems are successfully found. */
+  @GetMapping(&quot;/side&quot;)
+  @ApiOperation(
+      value = &quot;Get all SideItems&quot;,
+      tags = {
+        &quot;side&quot;,
+      })
+  public ResponseEntity&lt;List&lt;SideItem&gt;&gt; getAllSides() {
+<span class="fc" id="L32">    return new ResponseEntity&lt;List&lt;SideItem&gt;&gt;(sideService.getAllSides(), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if id is not found in database. HttpStatus.OK - if
+   * SideItem is successfully found.
+   */
+  @GetMapping(&quot;/side/{id}&quot;)
+  @ApiOperation(
+      value = &quot;Get a specific SideItem using id&quot;,
+      tags = {
+        &quot;side&quot;,
+      })
+  public ResponseEntity&lt;SideItem&gt; getSideById(@PathVariable String id) {
+<span class="nc" id="L46">    SideItem sideItem = sideService.getSideById(id);</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">    if (sideItem != null) {</span>
+<span class="nc" id="L48">      return new ResponseEntity&lt;SideItem&gt;(sideItem, HttpStatus.OK);</span>
+    }
+<span class="nc" id="L50">    return new ResponseEntity&lt;SideItem&gt;(HttpStatus.NOT_FOUND);</span>
+  }
+
+  /** {@inheritDoc} HttpStatus.OK- if SideItem is successfully added or updated. */
+  @PostMapping(&quot;/side&quot;)
+  @ApiOperation(
+      value = &quot;Add a SideItem&quot;,
+      tags = {
+        &quot;side&quot;,
+      })
+  public ResponseEntity&lt;SideItem&gt; addSide(SideItem newSide) {
+<span class="nc" id="L61">    return new ResponseEntity&lt;SideItem&gt;(sideService.addSide(newSide), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if id is not found in database. HttpStatus.OK - if
+   * SideItem is successfully deleted.
+   */
+  @DeleteMapping(&quot;/side/{id}&quot;)
+  @ApiOperation(
+      value = &quot;Delete a SideItem using id&quot;,
+      tags = {
+        &quot;side&quot;,
+      })
+  public ResponseEntity&lt;Void&gt; deleteSide(String id) {
+<span class="nc" id="L75">    SideItem sideItem = sideService.getSideById(id);</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">    if (sideItem != null) {</span>
+<span class="nc" id="L77">      sideService.deleteSide(id);</span>
+<span class="nc" id="L78">      return new ResponseEntity&lt;Void&gt;(HttpStatus.NO_CONTENT);</span>
+    }
+<span class="nc" id="L80">    return new ResponseEntity&lt;Void&gt;(HttpStatus.NOT_FOUND);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

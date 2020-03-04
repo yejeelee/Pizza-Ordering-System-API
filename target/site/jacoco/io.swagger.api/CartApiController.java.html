@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CartApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.api</a> &gt; <span class="el_source">CartApiController.java</span></div><h1>CartApiController.java</h1><pre class="source lang-java linenums">package io.swagger.api;
+
+import io.swagger.Message;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.model.Cart;
+import io.swagger.model.CartAddResponse;
+import io.swagger.model.Pizza;
+import io.swagger.model.PriceResponse;
+import io.swagger.model.SideItem;
+import io.swagger.service.CartService;
+import io.swagger.service.PizzaSizeService;
+import io.swagger.service.SideService;
+import io.swagger.service.StoreService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@RestController
+<span class="fc" id="L29">public class CartApiController implements CartApi {</span>
+
+  @Autowired private CartService cartService;
+  @Autowired private PizzaSizeService sizeService;
+  @Autowired private SideService sideService;
+  @Autowired private StoreService storeService;
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if storeId and cartId are not matching. HttpStatus.OK - if
+   * Cart was successfully found.
+   */
+  @GetMapping(&quot;/cart/{storeId}/{cartId}&quot;)
+  @ApiOperation(
+      value = &quot;Get all items in the cart with specific id.&quot;,
+      tags = {
+        &quot;cart&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public ResponseEntity&lt;Cart&gt; getCartItemsById(String storeId, String cartId) {
+<span class="nc bnc" id="L52" title="All 2 branches missed.">    if (cartService.getCartItemsById(storeId, cartId) == null) {</span>
+<span class="nc" id="L53">      return new ResponseEntity&lt;Cart&gt;(HttpStatus.NOT_FOUND);</span>
+    }
+<span class="nc" id="L55">    return new ResponseEntity&lt;Cart&gt;(cartService.getCartItemsById(storeId, cartId), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if storeId and cartId are not matching. HttpStatus.OK - if
+   * price of the Cart was successfully found.
+   */
+  @GetMapping(&quot;/cart/{storeId}/{cartId}/price&quot;)
+  @ApiOperation(
+      value = &quot;Get price of all items in the cart with specific id.&quot;,
+      tags = {
+        &quot;cart&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public ResponseEntity&lt;PriceResponse&gt; getPriceOfCartById(String storeId, String cartId) {
+    final PriceResponse response;
+<span class="nc bnc" id="L75" title="All 2 branches missed.">    if (cartService.getCartItemsById(storeId, cartId) == null) {</span>
+<span class="nc" id="L76">      response = new PriceResponse(Message.CART_NOT_FOUND);</span>
+<span class="nc" id="L77">      return new ResponseEntity&lt;PriceResponse&gt;(response, HttpStatus.NOT_FOUND);</span>
+    }
+<span class="nc" id="L79">    Double price = cartService.getTotalAmountInCart(cartId);</span>
+<span class="nc" id="L80">    response = new PriceResponse(price, &quot;USD&quot;);</span>
+<span class="nc" id="L81">    return new ResponseEntity&lt;PriceResponse&gt;(response, HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if the storeId is not found. HttpStatus.NOT_FOUND - if the
+   * pizzaSizeId is not found. HttpStatus.BAD_REQUEST - if the store's gluten setting does not match
+   * with given gluten. HttpStatus.BAD_REQUEST - if pizza toppings is greater than maximum toppings
+   * number. HttpStatus.OK - if pizza was successfully added to Cart.
+   */
+  @PostMapping(&quot;/cart/{storeId}/{cartId}/pizza&quot;)
+  @ApiOperation(
+      value = &quot;add pizza to the specific cart or by creating new cart.&quot;,
+      tags = {
+        &quot;cart&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 400, message = &quot;BAD_REQUEST&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public ResponseEntity&lt;CartAddResponse&gt; addPizzaToCart(
+      String storeId, String cartId, Pizza pizza) {
+    final CartAddResponse response;
+<span class="nc bnc" id="L105" title="All 2 branches missed.">    if (pizza.getToppingIDs().size() &gt; Pizza.MAXIMUM_TOPPING_COUNT) {</span>
+<span class="nc" id="L106">      response = new CartAddResponse(Message.TOO_MANY_PIZZA_TOPPINGS);</span>
+<span class="nc" id="L107">      return new ResponseEntity&lt;CartAddResponse&gt;(response, HttpStatus.BAD_REQUEST);</span>
+    }
+<span class="nc bnc" id="L109" title="All 2 branches missed.">    if (storeService.getStoreById(storeId) == null) {</span>
+<span class="nc" id="L110">      response = new CartAddResponse(Message.STORE_NOT_FOUND);</span>
+<span class="nc" id="L111">      return new ResponseEntity&lt;CartAddResponse&gt;(response, HttpStatus.NOT_FOUND);</span>
+    }
+<span class="nc bnc" id="L113" title="All 2 branches missed.">    if (sizeService.getPizzaSizeById(pizza.getSizeID()) == null) {</span>
+<span class="nc" id="L114">      response = new CartAddResponse(Message.PIZZA_SIZE_NOT_FOUND);</span>
+<span class="nc" id="L115">      return new ResponseEntity&lt;CartAddResponse&gt;(response, HttpStatus.NOT_FOUND);</span>
+    }
+<span class="nc bnc" id="L117" title="All 4 branches missed.">    if (!pizza.isGluten() &amp;&amp; !storeService.storeOffersGlutenFree(storeId)) {</span>
+<span class="nc" id="L118">      response = new CartAddResponse(Message.STORE_CANNOT_SERVE_GLUTEN_FREE);</span>
+<span class="nc" id="L119">      return new ResponseEntity&lt;CartAddResponse&gt;(response, HttpStatus.BAD_REQUEST);</span>
+    }
+    try {
+<span class="nc" id="L122">      Cart cart = cartService.getOrCreateCart(storeId, cartId);</span>
+<span class="nc" id="L123">      cartService.addPizzaToCart(cart, pizza);</span>
+<span class="nc" id="L124">      response = new CartAddResponse(pizza, cart.getId(), storeId);</span>
+<span class="nc" id="L125">      return new ResponseEntity&lt;CartAddResponse&gt;(response, HttpStatus.OK);</span>
+<span class="nc" id="L126">    } catch (Exception exception) {</span>
+<span class="nc" id="L127">      return new ResponseEntity&lt;CartAddResponse&gt;(</span>
+<span class="nc" id="L128">          new CartAddResponse(exception.getMessage()), HttpStatus.BAD_REQUEST);</span>
+    }
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if the storeId is not found. HttpStatus.NOT_FOUND - if the
+   * sideId is not found. HttpStatus.OK - if side was successfully added to Cart.
+   */
+  @PostMapping(&quot;/cart/{storeId}/{cartId}/side&quot;)
+  @ApiOperation(
+      value = &quot;add side to the specific cart or by creating new cart.&quot;,
+      tags = {
+        &quot;cart&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public ResponseEntity&lt;CartAddResponse&gt; addSideToCart(
+      String storeId, String cartId, String sideId) {
+    final CartAddResponse response;
+<span class="nc bnc" id="L150" title="All 2 branches missed.">    if (storeService.getStoreById(storeId) == null) {</span>
+<span class="nc" id="L151">      response = new CartAddResponse(Message.STORE_NOT_FOUND);</span>
+<span class="nc" id="L152">      return new ResponseEntity&lt;CartAddResponse&gt;(response, HttpStatus.NOT_FOUND);</span>
+    }
+<span class="nc bnc" id="L154" title="All 2 branches missed.">    if (sideService.getSideById(sideId) == null) {</span>
+<span class="nc" id="L155">      response = new CartAddResponse(Message.SIDE_NOT_FOUND);</span>
+<span class="nc" id="L156">      return new ResponseEntity&lt;CartAddResponse&gt;(response, HttpStatus.NOT_FOUND);</span>
+    }
+<span class="nc" id="L158">    Cart cart = cartService.getOrCreateCart(storeId, cartId);</span>
+<span class="nc" id="L159">    SideItem side = cartService.addSideToCart(cart, sideId);</span>
+<span class="nc" id="L160">    response = new CartAddResponse(side, cart.getId(), storeId);</span>
+<span class="nc" id="L161">    return new ResponseEntity&lt;CartAddResponse&gt;(response, HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if storeId and cartId are not matching.
+   * HttpStatus.NO_CONTENT - if cartId is successfully removed.
+   */
+  @DeleteMapping(&quot;/cart/{storeId}/{cartId}&quot;)
+  @ApiOperation(
+      value = &quot;Delete a Cart with id.&quot;,
+      tags = {
+        &quot;cart&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 204, message = &quot;NO_CONTENT&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public HttpStatus deleteCart(String storeId, String cartId) {
+<span class="nc bnc" id="L180" title="All 2 branches missed.">    if (cartService.getCartItemsById(storeId, cartId) == null) {</span>
+<span class="nc" id="L181">      return HttpStatus.NOT_FOUND;</span>
+    }
+<span class="nc" id="L183">    cartService.deleteCart(cartId);</span>
+<span class="nc" id="L184">    return HttpStatus.NO_CONTENT;</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if storeId and cartId are not matching.
+   * HttpStatus.NOT_FOUND - if the sideId is not found. HttpStatus.NO_CONTENT - if side is
+   * successfully removed from Cart.
+   */
+  @DeleteMapping(&quot;/cart/{storeId}/{cartId}/side&quot;)
+  @ApiOperation(
+      value = &quot;Delete a sideItem from a Cart with id.&quot;,
+      tags = {
+        &quot;cart&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 204, message = &quot;NO_CONTENT&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public HttpStatus deleteSideFromCart(String storeId, String cartId, String sideId) {
+<span class="nc" id="L204">    Cart cart = cartService.getCartItemsById(storeId, cartId);</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">    if (cart == null) {</span>
+<span class="nc" id="L206">      return HttpStatus.NOT_FOUND;</span>
+    }
+<span class="nc bnc" id="L208" title="All 2 branches missed.">    if (!cart.getSides().contains(sideId)) {</span>
+<span class="nc" id="L209">      return HttpStatus.BAD_REQUEST;</span>
+    }
+<span class="nc" id="L211">    cartService.deleteSideFromCart(cart, sideService.getSideById(sideId));</span>
+<span class="nc" id="L212">    return HttpStatus.NO_CONTENT;</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if storeId and cartId are not matching.
+   * HttpStatus.BAD_REQUEST - if given pizzaIndex is less than 0. HttpStatus.NO_CONTENT - if side is
+   * successfully removed from Cart.
+   */
+  @DeleteMapping(&quot;/cart/{storeId}/{cartId}/pizza&quot;)
+  @ApiOperation(
+      value = &quot;Delete a pizza from a Cart with index number(starting zero).&quot;,
+      tags = {
+        &quot;cart&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 204, message = &quot;NO_CONTENT&quot;),
+        @ApiResponse(code = 400, message = &quot;BAD_REQUEST&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public HttpStatus deletePizzaFromCart(String storeId, String cartId, Pizza pizza)
+      throws Exception {
+<span class="nc" id="L234">    Cart cart = cartService.getCartItemsById(storeId, cartId);</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">    if (cart == null) {</span>
+<span class="nc" id="L236">      return HttpStatus.NOT_FOUND;</span>
+    }
+<span class="nc" id="L238">    List&lt;Pizza&gt; pizzas = cart.getPizzas();</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">    if (!pizzas.contains(pizza)) {</span>
+<span class="nc" id="L240">      return HttpStatus.BAD_REQUEST;</span>
+    }
+<span class="nc" id="L242">    cartService.deletePizzaFromCart(cart, pizza);</span>
+<span class="nc" id="L243">    return HttpStatus.NO_CONTENT;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

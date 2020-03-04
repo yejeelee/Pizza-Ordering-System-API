@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: io.swagger.api.ApplySpecialApiControllerTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 29.819 s <<< FAILURE! - in io.swagger.api.ApplySpecialApiControllerTest
+testApplySpecial_Success(io.swagger.api.ApplySpecialApiControllerTest)  Time elapsed: 0.407 s  <<< FAILURE!
+junit.framework.AssertionFailedError
+	at io.swagger.api.ApplySpecialApiControllerTest.testApplySpecial_Success(ApplySpecialApiControllerTest.java:70)
+

@@ -1,0 +1,8 @@
+io/swagger/api/PizzaSizeApiControllerTest.class
+io/swagger/api/PizzaCountApiControllerTest.class
+io/swagger/model/PurchaseResponseTest.class
+io/swagger/api/ToppingApiControllerTest.class
+io/swagger/api/SpecialApiControllerTest.class
+io/swagger/api/SideApiControllerTest.class
+io/swagger/api/PurchaseApiControllerTest.class
+io/swagger/api/CartApiControllerTest.class

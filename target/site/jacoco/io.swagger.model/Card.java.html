@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Card.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">Card.java</span></div><h1>Card.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+
+/* Card */
+public class Card {
+
+  @JsonProperty(&quot;FirstName&quot;)
+  private String firstName;
+
+  @JsonProperty(&quot;LastName&quot;)
+  private String lastName;
+
+  @JsonProperty(&quot;CardNumber&quot;)
+  private String cardNumber;
+
+  @JsonProperty(&quot;ExpirationMonth&quot;)
+  private Integer expMonth;
+
+  @JsonProperty(&quot;ExpirationYear&quot;)
+  private Integer expYear;
+
+  /**
+   * Create new Card
+   *
+   * @param firstName firstName of this Card holder
+   * @param lastName lastName of this Card holder
+   * @param cardNumber cardNumber of this Card
+   * @param expMonth expiration month of this Card
+   * @param expYear expiration year of this Card
+   */
+  public Card(
+<span class="fc" id="L34">      String firstName, String lastName, String cardNumber, Integer expMonth, Integer expYear) {</span>
+<span class="fc" id="L35">    this.firstName = firstName;</span>
+<span class="fc" id="L36">    this.lastName = lastName;</span>
+<span class="fc" id="L37">    this.cardNumber = cardNumber;</span>
+<span class="fc" id="L38">    this.expMonth = expMonth;</span>
+<span class="fc" id="L39">    this.expYear = expYear;</span>
+<span class="fc" id="L40">  }</span>
+
+  /**
+   * Get firstName of this Card holder
+   *
+   * @return firstName of this Card holder
+   */
+  @ApiModelProperty(example = &quot;YeJee&quot;)
+  public String getFirstName() {
+<span class="fc" id="L49">    return this.firstName;</span>
+  }
+
+  /**
+   * Get lastName of this Card holder
+   *
+   * @return lastName of this Card holder
+   */
+  @ApiModelProperty(example = &quot;Lee&quot;)
+  public String getLastName() {
+<span class="fc" id="L59">    return this.lastName;</span>
+  }
+
+  /**
+   * Get the cardNumber of this Card
+   *
+   * @return cardNumber of this Card
+   */
+  @ApiModelProperty(example = &quot;4400651415892598&quot;)
+  public String getCardNumber() {
+<span class="fc" id="L69">    return this.cardNumber;</span>
+  }
+
+  /**
+   * Set the cardNumber with this securedNum(last four digits)
+   *
+   * @param securedNum last 4 digits of the card
+   */
+  public void setCardNumber(String securedNum) {
+<span class="fc" id="L78">    this.cardNumber = securedNum;</span>
+<span class="fc" id="L79">  }</span>
+
+  /**
+   * Get the expiration Month of this Card
+   *
+   * @return expiration month of this Card
+   */
+  @ApiModelProperty(example = &quot;05&quot;)
+  public Integer getExpMonth() {
+<span class="fc" id="L88">    return this.expMonth;</span>
+  }
+
+  /**
+   * Get the expiration Year of this Card
+   *
+   * @return expiration Year of this Card
+   */
+  @ApiModelProperty(example = &quot;2019&quot;)
+  public Integer getExpYear() {
+<span class="fc" id="L98">    return this.expYear;</span>
+  }
+
+  /**
+   * String representation of this Card.
+   *
+   * @return string representation of this Card
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L108">    return &quot;Card{Name=&quot;</span>
+        + this.firstName
+        + &quot; &quot;
+        + this.lastName
+        + &quot;, &quot;
+        + &quot;CardNumber=&quot;
+        + this.cardNumber
+        + &quot;, &quot;
+        + &quot;ExpirationDate=&quot;
+        + this.expMonth
+        + &quot;/&quot;
+        + this.expYear
+        + &quot;}&quot;;
+  }
+
+  /**
+   * Check if the two objects are equal
+   * @param obj obj given to compare if it is equal to this
+   * @return true if the two objects are equal, false otherwise
+   */
+  @Override
+  public boolean equals(Object obj) {
+<span class="fc bfc" id="L130" title="All 2 branches covered.">    if (obj == this) {</span>
+<span class="fc" id="L131">      return true;</span>
+    }
+<span class="fc bfc" id="L133" title="All 4 branches covered.">    if (obj == null || obj.getClass() != getClass()) {</span>
+<span class="fc" id="L134">      return false;</span>
+    }
+<span class="fc" id="L136">    Card card = (Card) obj;</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">    return this.firstName == card.getFirstName()</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        &amp;&amp; this.lastName == card.getLastName()</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        &amp;&amp; this.cardNumber == card.getCardNumber()</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        &amp;&amp; this.expMonth.equals(card.getExpMonth())</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        &amp;&amp; this.expYear.equals(card.getExpYear());</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

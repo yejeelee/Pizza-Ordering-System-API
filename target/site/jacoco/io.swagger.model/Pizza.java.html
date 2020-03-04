@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pizza.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">Pizza.java</span></div><h1>Pizza.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
+
+/** Pizza class */
+public class Pizza {
+
+  // Pizzas may have up to this many toppings
+  public static final int MAXIMUM_TOPPING_COUNT = 4;
+
+  @JsonProperty(&quot;PizzaSizeID&quot;)
+  private String sizeID;
+
+  @JsonProperty(&quot;gluten&quot;)
+  private boolean gluten;
+
+  @JsonProperty(&quot;toppingIDs&quot;)
+  private List&lt;String&gt; toppingIDs;
+
+  /**
+   * Create new Pizza
+   *
+   * @param sizeID pizzaSizeID given to this Pizza
+   * @param gluten true if it is gluten, false if it is glutenFree
+   */
+<span class="fc" id="L29">  public Pizza(String sizeID, boolean gluten) {</span>
+<span class="fc" id="L30">    this.sizeID = sizeID;</span>
+<span class="fc" id="L31">    this.toppingIDs = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L32">    this.gluten = gluten;</span>
+<span class="fc" id="L33">  }</span>
+
+  /**
+   * Get pizzaSizeID
+   *
+   * @return PizzaSizeID
+   */
+  @ApiModelProperty(example = &quot;small&quot;)
+  public String getSizeID() {
+<span class="fc" id="L42">    return this.sizeID;</span>
+  }
+
+  /**
+   * Check if this pizza is gluten
+   *
+   * @return true if it is gluten, false if it is a gluten free pizza
+   */
+  @ApiModelProperty(example = &quot;true&quot;)
+  public boolean isGluten() {
+<span class="fc" id="L52">    return this.gluten;</span>
+  }
+
+  /**
+   * Get all the toppingIDs in this Pizza
+   *
+   * @return list of ToppingIDs in this Pizza
+   */
+  @ApiModelProperty(allowableValues = &quot;pepperoni&quot;)
+  public List&lt;String&gt; getToppingIDs() {
+<span class="fc" id="L62">    return this.toppingIDs;</span>
+  }
+
+  /**
+   * String representation of this Pizza.
+   *
+   * @return a String representation of this Pizza
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L72">    return &quot;Pizza{&quot;</span>
+        + &quot;sizeID=&quot;
+        + this.sizeID
+        + &quot;, gluten=&quot;
+        + this.gluten
+        + &quot;, toppingIDs=&quot;
+        + this.toppingIDs
+        + &quot;}&quot;;
+  }
+
+  /**
+   * Check if two objects are equal.
+   *
+   * @param obj object given for comparison
+   * @return true if two objects are equal, false otherwise.
+   */
+  @Override
+  public boolean equals(Object obj) {
+<span class="fc bfc" id="L90" title="All 2 branches covered.">    if (obj == this) {</span>
+<span class="fc" id="L91">      return true;</span>
+    }
+<span class="fc bfc" id="L93" title="All 4 branches covered.">    if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="fc" id="L94">      return false;</span>
+    }
+<span class="fc" id="L96">    Pizza pizza = (Pizza) obj;</span>
+<span class="fc bfc" id="L97" title="All 4 branches covered.">    return this.sizeID.equals(pizza.getSizeID())</span>
+        &amp;&amp; this.gluten == pizza.gluten
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        &amp;&amp; this.toppingIDs.equals(pizza.getToppingIDs());</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

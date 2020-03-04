@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ToppingApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.api</a> &gt; <span class="el_source">ToppingApiController.java</span></div><h1>ToppingApiController.java</h1><pre class="source lang-java linenums">package io.swagger.api;
+
+import io.swagger.annotations.*;
+import io.swagger.model.ToppingItem;
+import io.swagger.service.ToppingItemService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@RestController
+<span class="fc" id="L19">public class ToppingApiController implements ToppingApi {</span>
+
+  @Autowired private ToppingItemService toppingItemService;
+
+  /** {@inheritDoc} HttpStatus.OK - if toppingItem is successfully found. */
+  @GetMapping(&quot;/topping&quot;)
+  @ApiOperation(
+      value = &quot;Get all ToppingItem&quot;,
+      tags = {
+        &quot;topping&quot;,
+      })
+  @ApiResponse(code = 200, message = &quot;OK&quot;)
+  public ResponseEntity&lt;List&lt;ToppingItem&gt;&gt; getAllTopping() {
+<span class="nc" id="L32">    return new ResponseEntity&lt;List&lt;ToppingItem&gt;&gt;(toppingItemService.getAllTopping(), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if toppingId is not found from database. HttpStatus.OK -
+   * if toppingItem is successfully found.
+   */
+  @GetMapping(&quot;/topping/{id}&quot;)
+  @ApiOperation(
+      value = &quot;Get ToppingItem with specific id&quot;,
+      tags = {
+        &quot;topping&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public ResponseEntity&lt;ToppingItem&gt; getToppingById(String id) {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">    if (toppingItemService.getToppingById(id) == null) {</span>
+<span class="nc" id="L52">      return new ResponseEntity&lt;ToppingItem&gt;(HttpStatus.NOT_FOUND);</span>
+    }
+<span class="nc" id="L54">    return new ResponseEntity&lt;ToppingItem&gt;(toppingItemService.getToppingById(id), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.OK - if topping is successfully created. HttpStatus.FORBIDDEN - if
+   * there is already a toppingId in database
+   */
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 403, message = &quot;FORBIDDEN&quot;)
+      })
+  @PostMapping(&quot;/topping&quot;)
+  @ApiOperation(
+      value = &quot;add a ToppingItem&quot;,
+      tags = {
+        &quot;topping&quot;,
+      })
+  public ResponseEntity&lt;ToppingItem&gt; addTopping(ToppingItem toppingItem) {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">    if (toppingItemService.getToppingById(toppingItem.getId()) != null) {</span>
+<span class="nc" id="L74">      return new ResponseEntity&lt;ToppingItem&gt;(HttpStatus.FORBIDDEN);</span>
+    }
+<span class="nc" id="L76">    return new ResponseEntity&lt;ToppingItem&gt;(</span>
+<span class="nc" id="L77">        toppingItemService.addTopping(toppingItem), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if toppingId is not found from database.
+   * HttpStatus.NO_CONTENT - if toppingItem is successfully removed.
+   */
+  @DeleteMapping(&quot;/topping/{id}&quot;)
+  @ApiOperation(
+      value = &quot;delete a ToppingItem with id&quot;,
+      tags = {
+        &quot;topping&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 204, message = &quot;NO_CONTENT&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public HttpStatus deleteTopping(String id) {
+
+<span class="nc bnc" id="L97" title="All 2 branches missed.">    if (toppingItemService.getToppingById(id) == null) {</span>
+<span class="nc" id="L98">      return HttpStatus.NOT_FOUND;</span>
+    }
+<span class="nc" id="L100">    toppingItemService.deleteTopping(id);</span>
+<span class="nc" id="L101">    return HttpStatus.NO_CONTENT;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

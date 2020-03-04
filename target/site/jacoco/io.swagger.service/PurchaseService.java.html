@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurchaseService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.service</a> &gt; <span class="el_source">PurchaseService.java</span></div><h1>PurchaseService.java</h1><pre class="source lang-java linenums">package io.swagger.service;
+
+import io.swagger.model.Card;
+import io.swagger.model.Cart;
+import io.swagger.model.Receipt;
+import io.swagger.repository.ReceiptRepository;
+import java.util.GregorianCalendar;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+<span class="fc" id="L12">public class PurchaseService {</span>
+
+  @Autowired private ReceiptRepository receiptRepository;
+
+  /**
+   * Create Receipt using the Cart and Card
+   *
+   * @param cart cart given to show items
+   * @param card card given to purchase
+   * @return receipt if card is valid, null if the card is expired
+   */
+  public Receipt makeReceipt(Cart cart, Card card) {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">    if (validateExpDate(card.getExpMonth(), card.getExpYear())) {</span>
+<span class="fc" id="L25">      Card secureCard = secureCardNumber(card);</span>
+<span class="fc" id="L26">      Receipt receipt = new Receipt(cart, secureCard);</span>
+<span class="fc" id="L27">      receiptRepository.save(receipt);</span>
+<span class="fc" id="L28">      return receipt;</span>
+    }
+<span class="fc" id="L30">    return null;</span>
+  }
+
+  /**
+   * Validate the expiration date of the Card GregorianCalendar month starts from 0(January)
+   *
+   * @param month month given to check
+   * @param year year given to check
+   * @return true if the month/year is not expired. false if it is expired.
+   */
+  public boolean validateExpDate(Integer month, Integer year) {
+<span class="fc" id="L41">    GregorianCalendar now = new GregorianCalendar();</span>
+<span class="fc" id="L42">    GregorianCalendar expDate = new GregorianCalendar(year, month - 1, 1, 23, 59, 59);</span>
+<span class="fc" id="L43">    int lastDate = expDate.getActualMaximum(expDate.DATE);</span>
+<span class="fc" id="L44">    expDate.set(expDate.DATE, lastDate);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">    return now.compareTo(expDate) &lt;= 0;</span>
+  }
+
+  /**
+   * Secure the cardNumber by only saving the last four digits
+   *
+   * @param card card given to secure in the database
+   * @return card with the only last four digits
+   */
+  public Card secureCardNumber(Card card) {
+<span class="fc" id="L55">    String cardNum = card.getCardNumber().substring(card.getCardNumber().length() - 4);</span>
+<span class="fc" id="L56">    card.setCardNumber(cardNum);</span>
+<span class="fc" id="L57">    return card;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PriceResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">PriceResponse.java</span></div><h1>PriceResponse.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+
+/** Price Response */
+public class PriceResponse {
+
+  @JsonProperty(&quot;Success&quot;)
+  private boolean success;
+
+  @JsonProperty(&quot;Price&quot;)
+  private Double price;
+
+  @JsonProperty(&quot;Currency&quot;)
+  private String currency;
+
+  @JsonProperty(&quot;Message&quot;)
+  private String message;
+
+  /**
+   * Construct a new PriceResponse Use this constructor for successful responses.
+   *
+   * @param price price that was found.
+   * @param currency currency that was found.
+   */
+<span class="fc" id="L27">  public PriceResponse(Double price, String currency) {</span>
+<span class="fc" id="L28">    this.success = true;</span>
+<span class="fc" id="L29">    this.price = price;</span>
+<span class="fc" id="L30">    this.currency = currency;</span>
+<span class="fc" id="L31">    this.message = null;</span>
+<span class="fc" id="L32">  }</span>
+
+  /**
+   * Construct a new PriceResponse Use this constructur for failing responses.
+   *
+   * @param message message given to PriceResponse.
+   */
+<span class="fc" id="L39">  public PriceResponse(String message) {</span>
+<span class="fc" id="L40">    this.success = false;</span>
+<span class="fc" id="L41">    this.price = null;</span>
+<span class="fc" id="L42">    this.currency = null;</span>
+<span class="fc" id="L43">    this.message = message;</span>
+<span class="fc" id="L44">  }</span>
+
+  /**
+   * Get the price.
+   *
+   * @return Double price.
+   */
+  @ApiModelProperty(example = &quot;10.00&quot;)
+  public Double getPrice() {
+<span class="fc" id="L53">    return price;</span>
+  }
+
+  /**
+   * Get the currency unit of this price.
+   *
+   * @return String if it is in US dollar, return &quot;USD&quot;
+   */
+  @ApiModelProperty(example = &quot;USD&quot;)
+  public String getCurrency() {
+<span class="fc" id="L63">    return currency;</span>
+  }
+
+  /**
+   * Check if the PriceResponse was successful.
+   *
+   * @return true if price was found, false otherwise.
+   */
+  @ApiModelProperty(example = &quot;true&quot;)
+  public boolean isSuccess() {
+<span class="fc" id="L73">    return success;</span>
+  }
+
+  /**
+   * Get message of this PriceResponse.
+   *
+   * @return message of this PriceResponse
+   */
+  public String getMessage() {
+<span class="fc" id="L82">    return this.message;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

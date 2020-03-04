@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PizzaSizeApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.api</a> &gt; <span class="el_source">PizzaSizeApiController.java</span></div><h1>PizzaSizeApiController.java</h1><pre class="source lang-java linenums">package io.swagger.api;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.model.PizzaSize;
+import io.swagger.service.PizzaSizeService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/** PizzaSizeApiController */
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@RestController
+<span class="fc" id="L23">public class PizzaSizeApiController implements PizzaSizeApi {</span>
+
+  @Autowired private PizzaSizeService sizeService;
+
+  /**
+   * Get all pizza sizes from database
+   *
+   * @return list of pizza sizes from database HttpStatus.OK - successfully found all pizzaSizes
+   *     from database
+   */
+  @GetMapping(&quot;/size&quot;)
+  @ApiOperation(
+      value = &quot;Get all PizzaSizes&quot;,
+      tags = {
+        &quot;pizza size&quot;,
+      })
+  @ApiResponse(code = 200, message = &quot;OK&quot;)
+  public ResponseEntity&lt;List&lt;PizzaSize&gt;&gt; getAllPizzaSizes() {
+<span class="nc" id="L41">    return new ResponseEntity&lt;List&lt;PizzaSize&gt;&gt;(sizeService.getAllPizzaSizes(), HttpStatus.OK);</span>
+  }
+
+  /**
+   * Get a pizzaSize by using id
+   *
+   * @param id pizzaSizeId given to search
+   * @return PizzaSize found by id HttpStatus.OK - successfully found PizzaSize by id
+   *     HttpStatus.NOT_FOUND - not able to find PizzaSize by id
+   */
+  @GetMapping(&quot;/size/{id}&quot;)
+  @ApiOperation(
+      value = &quot;Get specific PizzaSize with id&quot;,
+      tags = {
+        &quot;pizza size&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public ResponseEntity&lt;PizzaSize&gt; getPizzaSizeById(@PathVariable String id) {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">    if (sizeService.getPizzaSizeById(id) == null) {</span>
+<span class="nc" id="L64">      return new ResponseEntity&lt;PizzaSize&gt;(HttpStatus.NOT_FOUND);</span>
+    }
+<span class="nc" id="L66">    return new ResponseEntity&lt;PizzaSize&gt;(sizeService.getPizzaSizeById(id), HttpStatus.OK);</span>
+  }
+
+  /**
+   * Add PizzaSize to database
+   *
+   * @param pizzaSize pizzaSize given to add
+   * @return pizzaSize added to database HttpStatus.FORBIDDEN - if pizzaSize already exist in the
+   *     Database HttpStatus.OK - if pizzaSize successfully added
+   */
+  @PostMapping(&quot;/size&quot;)
+  @ApiOperation(
+      value = &quot;add PizzaSize&quot;,
+      tags = {
+        &quot;pizza size&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 403, message = &quot;FORBIDDEN&quot;)
+      })
+  public ResponseEntity&lt;PizzaSize&gt; addPizzaSize(PizzaSize pizzaSize) {
+<span class="nc bnc" id="L88" title="All 2 branches missed.">    if (sizeService.getPizzaSizeById(pizzaSize.getId()) != null) {</span>
+<span class="nc" id="L89">      return new ResponseEntity&lt;PizzaSize&gt;(HttpStatus.FORBIDDEN);</span>
+    }
+<span class="nc" id="L91">    return new ResponseEntity&lt;PizzaSize&gt;(sizeService.addPizzaSize(pizzaSize), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if specialId is not found from database.
+   * HttpStatus.NO_CONTENT - if specialItem is successfully removed.
+   */
+  @DeleteMapping(&quot;/size/{id}&quot;)
+  @ApiOperation(
+      value = &quot;delete a PizzaSize with id&quot;,
+      tags = {
+        &quot;pizza size&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 204, message = &quot;NO_CONTENT&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public HttpStatus deletePizzaSize(String id) {
+<span class="nc bnc" id="L110" title="All 2 branches missed.">    if (sizeService.getPizzaSizeById(id) == null) {</span>
+<span class="nc" id="L111">      return HttpStatus.NOT_FOUND;</span>
+    }
+<span class="nc" id="L113">    sizeService.deletePizzaSize(id);</span>
+<span class="nc" id="L114">    return HttpStatus.NO_CONTENT;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

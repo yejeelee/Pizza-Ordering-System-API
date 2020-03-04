@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApplySpecialResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">ApplySpecialResponse.java</span></div><h1>ApplySpecialResponse.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
+
+/** Apply Special Response Model */
+@Validated
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@ApiModel
+public class ApplySpecialResponse {
+  @JsonProperty(&quot;specialId&quot;)
+  private String specialId;
+
+<span class="fc" id="L21">  @JsonProperty(&quot;success&quot;)</span>
+  private boolean success = false;
+
+<span class="fc" id="L24">  @JsonProperty(&quot;message&quot;)</span>
+  private String message = null;
+
+<span class="fc" id="L27">  @JsonProperty(&quot;savings&quot;)</span>
+<span class="fc" id="L28">  private Double savings = 0.00;</span>
+
+  /**
+   * Construct an ApplySpecialResponse with the given specialId.
+   *
+   * @param specialId identifier of the special being applied
+   */
+<span class="fc" id="L35">  public ApplySpecialResponse(String specialId, Double savings) {</span>
+<span class="fc" id="L36">    this.specialId = specialId;</span>
+<span class="fc" id="L37">    this.savings = savings;</span>
+<span class="fc" id="L38">    this.success = true;</span>
+<span class="fc" id="L39">  }</span>
+
+  /**
+   * Construct a failing ApplySpecialResponse.
+   *
+   * @param message the error message explaining the failure
+   */
+<span class="fc" id="L46">  public ApplySpecialResponse(String message) {</span>
+<span class="fc" id="L47">    this.message = message;</span>
+<span class="fc" id="L48">    this.success = false;</span>
+<span class="fc" id="L49">  }</span>
+
+  /**
+   * Get special's id.
+   *
+   * @return special's id.
+   */
+  @ApiModelProperty(example = &quot;buy1PizzaGetSodaFree&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getSpecialId() {
+<span class="fc" id="L60">    return specialId;</span>
+  }
+
+  /**
+   * Set special's id.
+   *
+   * @param specialId special's id
+   */
+  public void setSpecialId(String specialId) {
+<span class="fc" id="L69">    this.specialId = specialId;</span>
+<span class="fc" id="L70">  }</span>
+
+  /**
+   * Get success of applying special.
+   *
+   * @return {@code true} if applying special successful and {@code false} otherwise.
+   */
+  @ApiModelProperty(example = &quot;false&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public boolean getSuccess() {
+<span class="fc" id="L81">    return success;</span>
+  }
+
+  /**
+   * Set success of applying special.
+   *
+   * @param success success of applying special
+   */
+  public void setSuccess(boolean success) {
+<span class="fc" id="L90">    this.success = success;</span>
+<span class="fc" id="L91">  }</span>
+
+  /**
+   * Get message regarding applying special.
+   *
+   * @return message regarding applying special: {@code null} if successful application and an error
+   *     message otherwise.
+   */
+  @ApiModelProperty(example = &quot;ERROR_ONLY_ONE_SPECIAL_PER_CART&quot;, required = false, value = &quot;&quot;)
+  @Valid
+  public String getMessage() {
+<span class="fc" id="L102">    return message;</span>
+  }
+
+  /**
+   * Set message regarding applying special.
+   *
+   * @param message message regarding applying special: {@code null} if successful application and
+   *     an error message otherwise
+   */
+  public void setMessage(String message) {
+<span class="nc" id="L112">    this.message = message;</span>
+<span class="nc" id="L113">  }</span>
+
+  /**
+   * Get savings received from special.
+   *
+   * @return savings received from special.
+   */
+  @ApiModelProperty(example = &quot;7.77&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public Double getSavings() {
+<span class="fc" id="L124">    return savings;</span>
+  }
+
+  /**
+   * Set savings received from special.
+   *
+   * @param savings savings received from special
+   */
+  public void setSavings(Double savings) {
+<span class="fc" id="L133">    this.savings = savings;</span>
+<span class="fc" id="L134">  }</span>
+
+  /**
+   * Indicates whether some other object is &quot;equal to&quot; this one.
+   *
+   * @param obj - the reference object with which to compare
+   * @return {@code true} if this object is the same as the obj argument and {@code false}
+   *     otherwise.
+   */
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L146">      return true;</span>
+    }
+<span class="pc bpc" id="L148" title="2 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L149">      return false;</span>
+    }
+<span class="fc" id="L151">    ApplySpecialResponse applySpecialResponse = (ApplySpecialResponse) o;</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">    return Objects.equals(this.specialId, applySpecialResponse.specialId)</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        &amp;&amp; Objects.equals(this.success, applySpecialResponse.success)</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        &amp;&amp; Objects.equals(this.message, applySpecialResponse.message)</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        &amp;&amp; Objects.equals(this.savings, applySpecialResponse.savings);</span>
+  }
+
+  /**
+   * Returns a hash code value for an ApplySpecial.
+   *
+   * @return hash code value for an ApplySpecial.
+   */
+  @Override
+  public int hashCode() {
+<span class="fc" id="L165">    return Objects.hash(specialId, success, message, savings);</span>
+  }
+
+  /**
+   * Returns a string representation of an ApplySpecial. Format -
+   * ApplySpecialResponse{specialId='specialId', success='applySpecialResponseSuccess',
+   * message='applySpecialResponseMessage', savings='x.xx'}
+   *
+   * @return string representation of a ApplySpecial.
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L177">    return &quot;ApplySpecialResponse{&quot;</span>
+        + &quot;specialId='&quot;
+        + specialId
+        + '\''
+        + &quot;, success='&quot;
+        + success
+        + '\''
+        + &quot;, message='&quot;
+        + message
+        + '\''
+        + &quot;, savings='&quot;
+        + savings
+        + '\''
+        + '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

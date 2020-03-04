@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomInstantDeserializer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.configuration</a> &gt; <span class="el_source">CustomInstantDeserializer.java</span></div><h1>CustomInstantDeserializer.java</h1><pre class="source lang-java linenums">package io.swagger.configuration;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonTokenId;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.datatype.threetenbp.DateTimeUtils;
+import com.fasterxml.jackson.datatype.threetenbp.DecimalUtils;
+import com.fasterxml.jackson.datatype.threetenbp.deser.ThreeTenDateTimeDeserializerBase;
+import com.fasterxml.jackson.datatype.threetenbp.function.BiFunction;
+import com.fasterxml.jackson.datatype.threetenbp.function.Function;
+import java.io.IOException;
+import java.math.BigDecimal;
+import org.threeten.bp.DateTimeException;
+import org.threeten.bp.Instant;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.temporal.Temporal;
+import org.threeten.bp.temporal.TemporalAccessor;
+
+/**
+ * Deserializer for ThreeTen temporal {@link Instant}s, {@link OffsetDateTime}, and {@link
+ * ZonedDateTime}s. Adapted from the jackson threetenbp InstantDeserializer to add support for
+ * deserializing rfc822 format.
+ *
+ * @author Nick Williams
+ */
+public class CustomInstantDeserializer&lt;T extends Temporal&gt;
+    extends ThreeTenDateTimeDeserializerBase&lt;T&gt; {
+
+  private static final long serialVersionUID = 1L;
+
+<span class="fc" id="L36">  public static final CustomInstantDeserializer&lt;Instant&gt; INSTANT =</span>
+      new CustomInstantDeserializer&lt;Instant&gt;(
+          Instant.class,
+          DateTimeFormatter.ISO_INSTANT,
+<span class="fc" id="L40">          new Function&lt;TemporalAccessor, Instant&gt;() {</span>
+            @Override
+            public Instant apply(TemporalAccessor temporalAccessor) {
+<span class="nc" id="L43">              return Instant.from(temporalAccessor);</span>
+            }
+          },
+<span class="fc" id="L46">          new Function&lt;FromIntegerArguments, Instant&gt;() {</span>
+            @Override
+            public Instant apply(FromIntegerArguments a) {
+<span class="nc" id="L49">              return Instant.ofEpochMilli(a.value);</span>
+            }
+          },
+<span class="fc" id="L52">          new Function&lt;FromDecimalArguments, Instant&gt;() {</span>
+            @Override
+            public Instant apply(FromDecimalArguments a) {
+<span class="nc" id="L55">              return Instant.ofEpochSecond(a.integer, a.fraction);</span>
+            }
+          },
+          null);
+
+<span class="fc" id="L60">  public static final CustomInstantDeserializer&lt;OffsetDateTime&gt; OFFSET_DATE_TIME =</span>
+      new CustomInstantDeserializer&lt;OffsetDateTime&gt;(
+          OffsetDateTime.class,
+          DateTimeFormatter.ISO_OFFSET_DATE_TIME,
+<span class="fc" id="L64">          new Function&lt;TemporalAccessor, OffsetDateTime&gt;() {</span>
+            @Override
+            public OffsetDateTime apply(TemporalAccessor temporalAccessor) {
+<span class="nc" id="L67">              return OffsetDateTime.from(temporalAccessor);</span>
+            }
+          },
+<span class="fc" id="L70">          new Function&lt;FromIntegerArguments, OffsetDateTime&gt;() {</span>
+            @Override
+            public OffsetDateTime apply(FromIntegerArguments a) {
+<span class="nc" id="L73">              return OffsetDateTime.ofInstant(Instant.ofEpochMilli(a.value), a.zoneId);</span>
+            }
+          },
+<span class="fc" id="L76">          new Function&lt;FromDecimalArguments, OffsetDateTime&gt;() {</span>
+            @Override
+            public OffsetDateTime apply(FromDecimalArguments a) {
+<span class="nc" id="L79">              return OffsetDateTime.ofInstant(</span>
+<span class="nc" id="L80">                  Instant.ofEpochSecond(a.integer, a.fraction), a.zoneId);</span>
+            }
+          },
+<span class="fc" id="L83">          new BiFunction&lt;OffsetDateTime, ZoneId, OffsetDateTime&gt;() {</span>
+            @Override
+            public OffsetDateTime apply(OffsetDateTime d, ZoneId z) {
+<span class="nc" id="L86">              return d.withOffsetSameInstant(z.getRules().getOffset(d.toLocalDateTime()));</span>
+            }
+          });
+
+<span class="fc" id="L90">  public static final CustomInstantDeserializer&lt;ZonedDateTime&gt; ZONED_DATE_TIME =</span>
+      new CustomInstantDeserializer&lt;ZonedDateTime&gt;(
+          ZonedDateTime.class,
+          DateTimeFormatter.ISO_ZONED_DATE_TIME,
+<span class="fc" id="L94">          new Function&lt;TemporalAccessor, ZonedDateTime&gt;() {</span>
+            @Override
+            public ZonedDateTime apply(TemporalAccessor temporalAccessor) {
+<span class="nc" id="L97">              return ZonedDateTime.from(temporalAccessor);</span>
+            }
+          },
+<span class="fc" id="L100">          new Function&lt;FromIntegerArguments, ZonedDateTime&gt;() {</span>
+            @Override
+            public ZonedDateTime apply(FromIntegerArguments a) {
+<span class="nc" id="L103">              return ZonedDateTime.ofInstant(Instant.ofEpochMilli(a.value), a.zoneId);</span>
+            }
+          },
+<span class="fc" id="L106">          new Function&lt;FromDecimalArguments, ZonedDateTime&gt;() {</span>
+            @Override
+            public ZonedDateTime apply(FromDecimalArguments a) {
+<span class="nc" id="L109">              return ZonedDateTime.ofInstant(</span>
+<span class="nc" id="L110">                  Instant.ofEpochSecond(a.integer, a.fraction), a.zoneId);</span>
+            }
+          },
+<span class="fc" id="L113">          new BiFunction&lt;ZonedDateTime, ZoneId, ZonedDateTime&gt;() {</span>
+            @Override
+            public ZonedDateTime apply(ZonedDateTime zonedDateTime, ZoneId zoneId) {
+<span class="nc" id="L116">              return zonedDateTime.withZoneSameInstant(zoneId);</span>
+            }
+          });
+
+  protected final Function&lt;FromIntegerArguments, T&gt; fromMilliseconds;
+
+  protected final Function&lt;FromDecimalArguments, T&gt; fromNanoseconds;
+
+  protected final Function&lt;TemporalAccessor, T&gt; parsedToValue;
+
+  protected final BiFunction&lt;T, ZoneId, T&gt; adjust;
+
+  protected CustomInstantDeserializer(
+      Class&lt;T&gt; supportedType,
+      DateTimeFormatter parser,
+      Function&lt;TemporalAccessor, T&gt; parsedToValue,
+      Function&lt;FromIntegerArguments, T&gt; fromMilliseconds,
+      Function&lt;FromDecimalArguments, T&gt; fromNanoseconds,
+      BiFunction&lt;T, ZoneId, T&gt; adjust) {
+<span class="fc" id="L135">    super(supportedType, parser);</span>
+<span class="fc" id="L136">    this.parsedToValue = parsedToValue;</span>
+<span class="fc" id="L137">    this.fromMilliseconds = fromMilliseconds;</span>
+<span class="fc" id="L138">    this.fromNanoseconds = fromNanoseconds;</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">    this.adjust =</span>
+        adjust == null
+<span class="fc" id="L141">            ? new BiFunction&lt;T, ZoneId, T&gt;() {</span>
+              @Override
+              public T apply(T t, ZoneId zoneId) {
+<span class="nc" id="L144">                return t;</span>
+              }
+            }
+            : adjust;
+<span class="fc" id="L148">  }</span>
+
+  @SuppressWarnings(&quot;unchecked&quot;)
+  protected CustomInstantDeserializer(CustomInstantDeserializer&lt;T&gt; base, DateTimeFormatter f) {
+<span class="nc" id="L152">    super((Class&lt;T&gt;) base.handledType(), f);</span>
+<span class="nc" id="L153">    parsedToValue = base.parsedToValue;</span>
+<span class="nc" id="L154">    fromMilliseconds = base.fromMilliseconds;</span>
+<span class="nc" id="L155">    fromNanoseconds = base.fromNanoseconds;</span>
+<span class="nc" id="L156">    adjust = base.adjust;</span>
+<span class="nc" id="L157">  }</span>
+
+  @Override
+  protected JsonDeserializer&lt;T&gt; withDateFormat(DateTimeFormatter dtf) {
+<span class="nc bnc" id="L161" title="All 2 branches missed.">    if (dtf == _formatter) {</span>
+<span class="nc" id="L162">      return this;</span>
+    }
+<span class="nc" id="L164">    return new CustomInstantDeserializer&lt;T&gt;(this, dtf);</span>
+  }
+
+  @Override
+  @SuppressWarnings(&quot;deprecation&quot;)
+  public T deserialize(JsonParser parser, DeserializationContext context) throws IOException {
+    // NOTE: Timestamps contain no timezone info, and are always in configured TZ. Only
+    // string values have to be adjusted to the configured TZ.
+<span class="nc bnc" id="L172" title="All 4 branches missed.">    switch (parser.getCurrentTokenId()) {</span>
+      case JsonTokenId.ID_NUMBER_FLOAT:
+        {
+<span class="nc" id="L175">          BigDecimal value = parser.getDecimalValue();</span>
+<span class="nc" id="L176">          long seconds = value.longValue();</span>
+<span class="nc" id="L177">          int nanoseconds = DecimalUtils.extractNanosecondDecimal(value, seconds);</span>
+<span class="nc" id="L178">          return fromNanoseconds.apply(</span>
+<span class="nc" id="L179">              new FromDecimalArguments(seconds, nanoseconds, getZone(context)));</span>
+        }
+
+      case JsonTokenId.ID_NUMBER_INT:
+        {
+<span class="nc" id="L184">          long timestamp = parser.getLongValue();</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">          if (context.isEnabled(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS)) {</span>
+<span class="nc" id="L186">            return this.fromNanoseconds.apply(</span>
+<span class="nc" id="L187">                new FromDecimalArguments(timestamp, 0, this.getZone(context)));</span>
+          }
+<span class="nc" id="L189">          return this.fromMilliseconds.apply(</span>
+<span class="nc" id="L190">              new FromIntegerArguments(timestamp, this.getZone(context)));</span>
+        }
+
+      case JsonTokenId.ID_STRING:
+        {
+<span class="nc" id="L195">          String string = parser.getText().trim();</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">          if (string.length() == 0) {</span>
+<span class="nc" id="L197">            return null;</span>
+          }
+<span class="nc bnc" id="L199" title="All 2 branches missed.">          if (string.endsWith(&quot;+0000&quot;)) {</span>
+<span class="nc" id="L200">            string = string.substring(0, string.length() - 5) + &quot;Z&quot;;</span>
+          }
+          T value;
+          try {
+<span class="nc" id="L204">            TemporalAccessor acc = _formatter.parse(string);</span>
+<span class="nc" id="L205">            value = parsedToValue.apply(acc);</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">            if (context.isEnabled(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)) {</span>
+<span class="nc" id="L207">              return adjust.apply(value, this.getZone(context));</span>
+            }
+<span class="nc" id="L209">          } catch (DateTimeException e) {</span>
+<span class="nc" id="L210">            throw _peelDTE(e);</span>
+<span class="nc" id="L211">          }</span>
+<span class="nc" id="L212">          return value;</span>
+        }
+    }
+<span class="nc" id="L215">    throw context.mappingException(&quot;Expected type float, integer, or string.&quot;);</span>
+  }
+
+  private ZoneId getZone(DeserializationContext context) {
+    // Instants are always in UTC, so don't waste compute cycles
+<span class="nc bnc" id="L220" title="All 2 branches missed.">    return (_valueClass == Instant.class)</span>
+        ? null
+<span class="nc" id="L222">        : DateTimeUtils.timeZoneToZoneId(context.getTimeZone());</span>
+  }
+
+  private static class FromIntegerArguments {
+
+    public final long value;
+    public final ZoneId zoneId;
+
+<span class="nc" id="L230">    private FromIntegerArguments(long value, ZoneId zoneId) {</span>
+<span class="nc" id="L231">      this.value = value;</span>
+<span class="nc" id="L232">      this.zoneId = zoneId;</span>
+<span class="nc" id="L233">    }</span>
+  }
+
+  private static class FromDecimalArguments {
+
+    public final long integer;
+    public final int fraction;
+    public final ZoneId zoneId;
+
+<span class="nc" id="L242">    private FromDecimalArguments(long integer, int fraction, ZoneId zoneId) {</span>
+<span class="nc" id="L243">      this.integer = integer;</span>
+<span class="nc" id="L244">      this.fraction = fraction;</span>
+<span class="nc" id="L245">      this.zoneId = zoneId;</span>
+<span class="nc" id="L246">    }</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

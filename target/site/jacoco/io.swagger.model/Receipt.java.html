@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Receipt.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">Receipt.java</span></div><h1>Receipt.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.GregorianCalendar;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.validation.annotation.Validated;
+
+/* Receipt */
+@Validated
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@ApiModel
+@Document(collection = &quot;Receipt&quot;)
+public class Receipt {
+  @Id
+  @JsonProperty(&quot;ReceiptId&quot;)
+  private ObjectId receiptId;
+
+  @JsonProperty(&quot;TimePlaced&quot;)
+  private GregorianCalendar timePlaced;
+
+  @JsonProperty(&quot;Cart&quot;)
+  private Cart cart;
+
+  @JsonProperty(&quot;Card&quot;)
+  private Card card;
+
+  /**
+   * Create new Receipt
+   *
+   * @param cart cart given to this Receipt
+   * @param card card given for payment of this Receipt
+   */
+<span class="fc" id="L39">  public Receipt(Cart cart, Card card) {</span>
+<span class="fc" id="L40">    this.receiptId = new ObjectId();</span>
+<span class="fc" id="L41">    this.timePlaced = new GregorianCalendar();</span>
+<span class="fc" id="L42">    this.cart = cart;</span>
+<span class="fc" id="L43">    this.card = card;</span>
+<span class="fc" id="L44">  }</span>
+
+  /**
+   * Get the ReceiptId of this Receipt
+   *
+   * @return receiptId of this Receipt
+   */
+  @ApiModelProperty(example = &quot;5dde3ac83157466b630de3a9&quot;)
+  public String getReceiptId() {
+<span class="fc" id="L53">    return this.receiptId.toString();</span>
+  }
+
+  /**
+   * Get the timePlaced of this Receipt
+   *
+   * @return the time of this Receipt created
+   */
+  public GregorianCalendar getTimePlaced() {
+<span class="fc" id="L62">    return this.timePlaced;</span>
+  }
+
+  /**
+   * Get the cart of this Receipt
+   *
+   * @return the cart of this Receipt
+   */
+  public Cart getCart() {
+<span class="fc" id="L71">    return this.cart;</span>
+  }
+
+  /**
+   * Get the card paid in this Receipt
+   *
+   * @return get the card paid in this Receipt
+   */
+  public Card getCard() {
+<span class="fc" id="L80">    return this.card;</span>
+  }
+
+  /**
+   * String representation of this Receipt
+   *
+   * @return string representation of this Receipt
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L90">    return &quot;Receipt{id=&quot;</span>
+<span class="fc" id="L91">        + this.receiptId.toString()</span>
+        + &quot;, &quot;
+        + &quot;Time placed=&quot;
+        + this.timePlaced
+        + &quot;, &quot;
+        + &quot;StoreId=&quot;
+<span class="fc" id="L97">        + this.cart.getStoreID()</span>
+        + &quot;, &quot;
+        + &quot;Pizzas=&quot;
+<span class="fc" id="L100">        + this.cart.getPizzas()</span>
+        + &quot;, &quot;
+        + &quot;Sides=&quot;
+<span class="fc" id="L103">        + this.cart.getSides()</span>
+        + &quot;, &quot;
+        + &quot;Total Amount=&quot;
+<span class="fc" id="L106">        + this.cart.getTotalAmount()</span>
+        + &quot;, &quot;
+        + &quot;Card=&quot;
+        + &quot;card number ending with &quot;
+<span class="fc" id="L110">        + this.card.getCardNumber().substring(this.card.getCardNumber().length() - 4)</span>
+        + &quot;}&quot;;
+  }
+
+  /**
+   * Check if two objects are equal
+   *
+   * @return true if two objects are equal, false otherwise
+   */
+  @Override
+  public boolean equals(Object obj) {
+<span class="fc bfc" id="L121" title="All 2 branches covered.">    if (obj == this) {</span>
+<span class="fc" id="L122">      return true;</span>
+    }
+<span class="fc bfc" id="L124" title="All 4 branches covered.">    if (obj == null || obj.getClass() != getClass()) {</span>
+<span class="fc" id="L125">      return false;</span>
+    }
+<span class="fc" id="L127">    Receipt receipt = (Receipt) obj;</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">    return receipt.getReceiptId().toString() == this.receiptId.toString()</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        &amp;&amp; receipt.getTimePlaced().compareTo(this.timePlaced) == 0</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        &amp;&amp; receipt.getCard() == this.card</span>
+<span class="pc bnc" id="L131" title="All 2 branches missed.">        &amp;&amp; receipt.getCart() == this.cart;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

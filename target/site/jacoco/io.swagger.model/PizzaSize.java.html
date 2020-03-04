@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PizzaSize.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">PizzaSize.java</span></div><h1>PizzaSize.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import io.swagger.DBPizzaSizes;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.repository.PizzaSizeRepository;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.validation.annotation.Validated;
+
+/** PizzaSize */
+@Validated
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@ApiModel
+@Document(collection = &quot;PizzaSize&quot;)
+public class PizzaSize {
+
+  @Id private String id;
+  private String sizeName;
+  private String sizeInch;
+  private Double price;
+
+  /**
+   * Creating new PizzaSize
+   *
+   * @param id id given to this PizzaSize
+   * @param sizeName sizeName given to this PizzaSize
+   * @param sizeInch sizeInch given to this PizzaSize
+   * @param price price given to this PizzaSize
+   */
+<span class="fc" id="L33">  public PizzaSize(String id, String sizeName, String sizeInch, Double price) {</span>
+<span class="fc" id="L34">    this.id = id;</span>
+<span class="fc" id="L35">    this.sizeName = sizeName;</span>
+<span class="fc" id="L36">    this.sizeInch = sizeInch;</span>
+<span class="fc" id="L37">    this.price = price;</span>
+<span class="fc" id="L38">  }</span>
+
+  /**
+   * Initialize PizzaSizeRepository by adding the 3 pizza sizes to the database.
+   *
+   * @param pizzaSizeRepository repository for StoreItem storage
+   */
+  public static void initialize(PizzaSizeRepository pizzaSizeRepository) {
+<span class="fc bfc" id="L46" title="All 2 branches covered.">    if (pizzaSizeRepository.count() == 0) {</span>
+<span class="fc" id="L47">      pizzaSizeRepository.insert(DBPizzaSizes.LARGE);</span>
+<span class="fc" id="L48">      pizzaSizeRepository.insert(DBPizzaSizes.MEDIUM);</span>
+<span class="fc" id="L49">      pizzaSizeRepository.insert(DBPizzaSizes.SMALL);</span>
+<span class="fc" id="L50">      pizzaSizeRepository.save(DBPizzaSizes.LARGE);</span>
+<span class="fc" id="L51">      pizzaSizeRepository.save(DBPizzaSizes.MEDIUM);</span>
+<span class="fc" id="L52">      pizzaSizeRepository.save(DBPizzaSizes.SMALL);</span>
+    }
+<span class="fc" id="L54">  }</span>
+
+  /**
+   * Get this id.
+   *
+   * @return id.
+   */
+  @ApiModelProperty(example = &quot;small&quot;)
+  public String getId() {
+<span class="fc" id="L63">    return this.id;</span>
+  }
+
+  /**
+   * Set id.
+   *
+   * @param id new id given to this PizzaSize.
+   */
+  public void setId(String id) {
+<span class="fc" id="L72">    this.id = id;</span>
+<span class="fc" id="L73">  }</span>
+
+  /**
+   * Get this sizeName.
+   *
+   * @return sizeName.
+   */
+  @ApiModelProperty(example = &quot;Small&quot;)
+  public String getSizeName() {
+<span class="fc" id="L82">    return this.sizeName;</span>
+  }
+
+  /**
+   * Set sizeName for this PizzaSize.
+   *
+   * @param sizeName new sizeName given to this PizzaSize.
+   */
+  public void setSizeName(String sizeName) {
+<span class="fc" id="L91">    this.sizeName = sizeName;</span>
+<span class="fc" id="L92">  }</span>
+
+  /**
+   * Get this sizeInch.
+   *
+   * @return sizeInch.
+   */
+  @ApiModelProperty(example = &quot;11&quot;)
+  public String getSizeInch() {
+<span class="fc" id="L101">    return this.sizeInch;</span>
+  }
+
+  /**
+   * Set sizeInch for this PizzaSize.
+   *
+   * @param sizeInch new sizeInch given to this PizzaSize.
+   */
+  public void setSizeInch(String sizeInch) {
+<span class="fc" id="L110">    this.sizeInch = sizeInch;</span>
+<span class="fc" id="L111">  }</span>
+
+  /**
+   * Get this price.
+   *
+   * @return price.
+   */
+  @ApiModelProperty(example = &quot;13.99&quot;)
+  public Double getPrice() {
+<span class="fc" id="L120">    return this.price;</span>
+  }
+
+  /**
+   * Set price for this PizzaSize.
+   *
+   * @param price new price given to this PizzaSize.
+   */
+  public void setPrice(Double price) {
+<span class="fc" id="L129">    this.price = price;</span>
+<span class="fc" id="L130">  }</span>
+
+  /**
+   * String representation of PizzaSize
+   *
+   * @return String representation of PizzaSize
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L139">    return &quot;PizzaSize{&quot;</span>
+        + &quot;id=&quot;
+        + id
+        + &quot;, sizeName=&quot;
+        + sizeName
+        + &quot;, sizeInch=&quot;
+        + sizeInch
+        + &quot;, price=&quot;
+        + price
+        + &quot;}&quot;;
+  }
+
+  /**
+   * Check if two objects are equal.
+   *
+   * @param obj obj given to compare
+   * @return true if two objects are equal, false otherwise.
+   */
+  @Override
+  public boolean equals(Object obj) {
+<span class="fc bfc" id="L159" title="All 2 branches covered.">    if (this == obj) return true;</span>
+<span class="fc bfc" id="L160" title="All 4 branches covered.">    if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="fc" id="L161">      return false;</span>
+    }
+<span class="fc" id="L163">    PizzaSize size = (PizzaSize) obj;</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">    return size.getId().equals(this.id)</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        &amp;&amp; size.getPrice().equals(this.price)</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        &amp;&amp; size.getSizeName().equals(this.sizeName)</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        &amp;&amp; size.getSizeInch().equals(this.sizeInch);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

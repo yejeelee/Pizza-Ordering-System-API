@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ToppingItem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">ToppingItem.java</span></div><h1>ToppingItem.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.DBToppingItems;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.repository.ToppingItemRepository;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/** ToppingItem */
+@Validated
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@ApiModel
+@Document(collection = &quot;ToppingItem&quot;)
+public class ToppingItem {
+
+  @JsonProperty(&quot;id&quot;)
+  private String id;
+
+  @JsonProperty(&quot;toppingName&quot;)
+  private String toppingName;
+
+  @JsonProperty(&quot;toppingType&quot;)
+  private String toppingType;
+
+  @JsonProperty(&quot;toppingSmallPrice&quot;)
+  private Double toppingSmallPrice;
+
+  @JsonProperty(&quot;toppingMediumPrice&quot;)
+  private Double toppingMediumPrice;
+
+  @JsonProperty(&quot;toppingLargePrice&quot;)
+  private Double toppingLargePrice;
+
+  @JsonProperty(&quot;toppingGluten&quot;)
+  private String toppingGluten;
+
+  /**
+   * Creating new ToppingItem
+   *
+   * @param id given to this ToppingItem
+   * @param toppingName given to this ToppingItem
+   * @param toppingType given to this ToppingItem
+   * @param toppingSmallPrice given to this ToppingItem
+   * @param toppingMediumPrice given to this ToppingItem
+   * @param toppingLargePrice given to this ToppingItem
+   * @param toppingGluten given to this ToppingItem
+   */
+  public ToppingItem(
+      String id,
+      String toppingName,
+      String toppingType,
+      Double toppingSmallPrice,
+      Double toppingMediumPrice,
+      Double toppingLargePrice,
+<span class="fc" id="L62">      String toppingGluten) {</span>
+<span class="fc" id="L63">    this.id = id;</span>
+<span class="fc" id="L64">    this.toppingName = toppingName;</span>
+<span class="fc" id="L65">    this.toppingType = toppingType;</span>
+<span class="fc" id="L66">    this.toppingSmallPrice = toppingSmallPrice;</span>
+<span class="fc" id="L67">    this.toppingMediumPrice = toppingMediumPrice;</span>
+<span class="fc" id="L68">    this.toppingLargePrice = toppingLargePrice;</span>
+<span class="fc" id="L69">    this.toppingGluten = toppingGluten;</span>
+<span class="fc" id="L70">  }</span>
+
+  /**
+   * Initialize ToppingItemRepository by adding the 6 toppings to the database.
+   * @param toppingItemRepository repository for ToppingItem storage
+   */
+  public static void initialize(ToppingItemRepository toppingItemRepository) {
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if(toppingItemRepository.count() == 0) {</span>
+<span class="fc" id="L78">      toppingItemRepository.insert(DBToppingItems.BLACK_OLIVES);</span>
+<span class="fc" id="L79">      toppingItemRepository.insert(DBToppingItems.GREEN_PEPPERS);</span>
+<span class="fc" id="L80">      toppingItemRepository.insert(DBToppingItems.MUSHROOMS);</span>
+<span class="fc" id="L81">      toppingItemRepository.insert(DBToppingItems.ONION);</span>
+<span class="fc" id="L82">      toppingItemRepository.insert(DBToppingItems.PEPPERONI);</span>
+<span class="fc" id="L83">      toppingItemRepository.insert(DBToppingItems.SAUSAGE);</span>
+<span class="fc" id="L84">      toppingItemRepository.save(DBToppingItems.BLACK_OLIVES);</span>
+<span class="fc" id="L85">      toppingItemRepository.save(DBToppingItems.GREEN_PEPPERS);</span>
+<span class="fc" id="L86">      toppingItemRepository.save(DBToppingItems.MUSHROOMS);</span>
+<span class="fc" id="L87">      toppingItemRepository.save(DBToppingItems.ONION);</span>
+<span class="fc" id="L88">      toppingItemRepository.save(DBToppingItems.PEPPERONI);</span>
+<span class="fc" id="L89">      toppingItemRepository.save(DBToppingItems.SAUSAGE);</span>
+    }
+<span class="fc" id="L91">  }</span>
+
+  /**
+   * Get id
+   *
+   * @return id
+   */
+  @ApiModelProperty(example = &quot;1&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getId() {
+<span class="fc" id="L102">    return id;</span>
+  }
+
+  /** Set id */
+  public void setId(String id) {
+<span class="fc" id="L107">    this.id = id;</span>
+<span class="fc" id="L108">  }</span>
+
+  /**
+   * Get toppingName
+   *
+   * @return toppingName
+   */
+  @ApiModelProperty(example = &quot;Sausage&quot;, value = &quot;&quot;)
+  @NotNull
+  @GetMapping(&quot;/{toppingName}&quot;)
+  public String getToppingName() {
+<span class="fc" id="L119">    return toppingName;</span>
+  }
+
+  /** Set toppingName */
+  public void setToppingName(String toppingName) {
+<span class="fc" id="L124">    this.toppingName = toppingName;</span>
+<span class="fc" id="L125">  }</span>
+
+  /**
+   * Get toppingType
+   *
+   * @return toppingType
+   */
+  @ApiModelProperty(example = &quot;meat&quot;, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getToppingType() {
+<span class="fc" id="L136">    return toppingType;</span>
+  }
+
+  /** Set topping type */
+  public void setToppingType(String toppingType) {
+<span class="fc" id="L141">    this.toppingType = toppingType;</span>
+<span class="fc" id="L142">  }</span>
+
+  /**
+   * Get toppingSmallPrice
+   *
+   * @return toppingSmallPrice
+   */
+  @ApiModelProperty(example = &quot;2.5&quot;, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public Double getToppingSmallPrice() {
+<span class="fc" id="L153">    return toppingSmallPrice;</span>
+  }
+
+  /** Set topping small price */
+  public void setToppingSmallPrice(Double toppingSmallPrice) {
+<span class="fc" id="L158">    this.toppingSmallPrice = toppingSmallPrice;</span>
+<span class="fc" id="L159">  }</span>
+
+  /**
+   * Get toppingMediumPrice
+   *
+   * @return toppingMediumPrice
+   */
+  @ApiModelProperty(example = &quot;2.75&quot;, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public Double getToppingMediumPrice() {
+<span class="fc" id="L170">    return toppingMediumPrice;</span>
+  }
+
+  /** Set topping medium price */
+  public void setToppingMediumPrice(Double toppingMediumPrice) {
+<span class="fc" id="L175">    this.toppingMediumPrice = toppingMediumPrice;</span>
+<span class="fc" id="L176">  }</span>
+
+  /**
+   * Get toppingLargePrice
+   *
+   * @return toppingLargePrice
+   */
+  @ApiModelProperty(example = &quot;3.0&quot;, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public Double getToppingLargePrice() {
+<span class="fc" id="L187">    return toppingLargePrice;</span>
+  }
+
+  /** Set topping large price */
+  public void setToppingLargePrice(Double toppingLargePrice) {
+<span class="fc" id="L192">    this.toppingLargePrice = toppingLargePrice;</span>
+<span class="fc" id="L193">  }</span>
+
+  /**
+   * Get toppingGluten
+   *
+   * @return toppingGluten
+   */
+  @ApiModelProperty(example = &quot;gluten&quot;, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getToppingGluten() {
+<span class="fc" id="L204">    return toppingGluten;</span>
+  }
+
+  /** Set topping gluten or non-gluten */
+  public void setToppingGluten(String toppingGluten) {
+<span class="fc" id="L209">    this.toppingGluten = toppingGluten;</span>
+<span class="fc" id="L210">  }</span>
+
+  /**
+   * Spring representation of a Topping Item
+   *
+   * @return string representation of a topping item
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L219">    return &quot;ToppingItem{&quot;</span>
+        + &quot;id='&quot;
+        + id
+        + '\''
+        + &quot;, topping name='&quot;
+        + toppingName
+        + '\''
+        + &quot;, topping type='&quot;
+        + toppingType
+        + '\''
+        + &quot;, topping small price='&quot;
+        + toppingSmallPrice
+        + '\''
+        + &quot;, topping medium price='&quot;
+        + toppingMediumPrice
+        + '\''
+        + &quot;, topping large price='&quot;
+        + toppingLargePrice
+        + '\''
+        + &quot;, topping gluten='&quot;
+        + toppingGluten
+        + '\''
+        + '}';
+  }
+
+  /**
+   * Check if two objects are equal
+   *
+   * @param obj object given to compare
+   * @return true if two objects are equal, false otherwise
+   */
+  @Override
+  public boolean equals(Object obj) {
+<span class="fc bfc" id="L252" title="All 2 branches covered.">    if (this == obj) {</span>
+<span class="fc" id="L253">      return true;</span>
+    }
+<span class="fc bfc" id="L255" title="All 2 branches covered.">    if (obj == null) {</span>
+<span class="fc" id="L256">      return false;</span>
+    }
+<span class="fc" id="L258">    ToppingItem toppingItem = (ToppingItem) obj;</span>
+<span class="fc bfc" id="L259" title="All 2 branches covered.">    return toppingItem.getId().equals(this.id)</span>
+<span class="fc bfc" id="L260" title="All 2 branches covered.">        &amp;&amp; toppingItem.getToppingName().equals(this.toppingName)</span>
+<span class="fc bfc" id="L261" title="All 2 branches covered.">        &amp;&amp; toppingItem.getToppingType().equals(this.toppingType)</span>
+<span class="fc bfc" id="L262" title="All 2 branches covered.">        &amp;&amp; toppingItem.getToppingSmallPrice().equals(this.toppingSmallPrice)</span>
+<span class="fc bfc" id="L263" title="All 2 branches covered.">        &amp;&amp; toppingItem.getToppingMediumPrice().equals(this.toppingMediumPrice)</span>
+<span class="fc bfc" id="L264" title="All 2 branches covered.">        &amp;&amp; toppingItem.getToppingLargePrice().equals(this.toppingLargePrice)</span>
+<span class="fc bfc" id="L265" title="All 2 branches covered.">        &amp;&amp; toppingItem.getToppingGluten().equals(this.toppingGluten);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

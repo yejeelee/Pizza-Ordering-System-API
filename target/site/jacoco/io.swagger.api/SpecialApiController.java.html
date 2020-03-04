@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SpecialApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.api</a> &gt; <span class="el_source">SpecialApiController.java</span></div><h1>SpecialApiController.java</h1><pre class="source lang-java linenums">package io.swagger.api;
+
+import io.swagger.annotations.*;
+import io.swagger.model.SpecialItem;
+import io.swagger.service.SpecialItemService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@RestController
+<span class="fc" id="L19">public class SpecialApiController implements SpecialApi {</span>
+
+  @Autowired private SpecialItemService specialItemService;
+
+  /** {@inheritDoc} HttpStatus.OK - if specialItem is successfully found. */
+  @GetMapping(&quot;/special&quot;)
+  @ApiOperation(
+      value = &quot;Get all SpecialItems&quot;,
+      tags = {
+        &quot;special&quot;,
+      })
+  @ApiResponse(code = 200, message = &quot;OK&quot;)
+  public ResponseEntity&lt;List&lt;SpecialItem&gt;&gt; getAllSpecials() {
+<span class="nc" id="L32">    return new ResponseEntity&lt;List&lt;SpecialItem&gt;&gt;(</span>
+<span class="nc" id="L33">        specialItemService.getAllSpecials(), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if specialId is not found from database. HttpStatus.OK -
+   * if specialItem is successfully found.
+   */
+  @GetMapping(&quot;/special/{id}&quot;)
+  @ApiOperation(
+      value = &quot;Get SpecialItem with specific id&quot;,
+      tags = {
+        &quot;special&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public ResponseEntity&lt;SpecialItem&gt; getSpecialById(String id) {
+<span class="nc bnc" id="L52" title="All 2 branches missed.">    if (specialItemService.getSpecialById(id) == null) {</span>
+<span class="nc" id="L53">      return new ResponseEntity&lt;SpecialItem&gt;(HttpStatus.NOT_FOUND);</span>
+    }
+<span class="nc" id="L55">    return new ResponseEntity&lt;SpecialItem&gt;(specialItemService.getSpecialById(id), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.OK - if special is successfully created. HttpStatus.FORBIDDEN - if
+   * there is already a specialId in database
+   */
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = &quot;OK&quot;),
+        @ApiResponse(code = 403, message = &quot;FORBIDDEN&quot;)
+      })
+  @PostMapping(&quot;/special&quot;)
+  @ApiOperation(
+      value = &quot;add a SpecialItem&quot;,
+      tags = {
+        &quot;special&quot;,
+      })
+  public ResponseEntity&lt;SpecialItem&gt; addSpecial(SpecialItem specialItem) {
+<span class="nc bnc" id="L74" title="All 2 branches missed.">    if (specialItemService.getSpecialById(specialItem.getId()) != null) {</span>
+<span class="nc" id="L75">      return new ResponseEntity&lt;SpecialItem&gt;(HttpStatus.FORBIDDEN);</span>
+    }
+<span class="nc" id="L77">    return new ResponseEntity&lt;SpecialItem&gt;(</span>
+<span class="nc" id="L78">        specialItemService.addSpecial(specialItem), HttpStatus.OK);</span>
+  }
+
+  /**
+   * {@inheritDoc} HttpStatus.NOT_FOUND - if specialId is not found from database.
+   * HttpStatus.NO_CONTENT - if specialItem is successfully removed.
+   */
+  @DeleteMapping(&quot;/special/{id}&quot;)
+  @ApiOperation(
+      value = &quot;delete a SpecialItem with id&quot;,
+      tags = {
+        &quot;special&quot;,
+      })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 204, message = &quot;NO_CONTENT&quot;),
+        @ApiResponse(code = 404, message = &quot;NOT_FOUND&quot;)
+      })
+  public HttpStatus deleteSpecial(String id) {
+
+<span class="nc bnc" id="L98" title="All 2 branches missed.">    if (specialItemService.getSpecialById(id) == null) {</span>
+<span class="nc" id="L99">      return HttpStatus.NOT_FOUND;</span>
+    }
+<span class="nc" id="L101">    specialItemService.deleteSpecial(id);</span>
+<span class="nc" id="L102">    return HttpStatus.NO_CONTENT;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

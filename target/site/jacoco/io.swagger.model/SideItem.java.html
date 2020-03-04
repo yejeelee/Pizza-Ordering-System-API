@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SideItem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">SideItem.java</span></div><h1>SideItem.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.DBSideItems;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.repository.SideItemRepository;
+import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.validation.annotation.Validated;
+
+/** StoreItem */
+@Validated
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@ApiModel
+@Document(collection = &quot;SideItem&quot;)
+public class SideItem {
+  public static final String TYPE_APPETIZER = &quot;appetizer&quot;;
+  public static final String TYPE_CONDIMENT = &quot;condiment&quot;;
+  public static final String TYPE_DESSERT = &quot;condiment&quot;;
+  public static final String TYPE_DRINK = &quot;drink&quot;;
+
+  @JsonProperty(&quot;id&quot;)
+  private String id;
+
+  @JsonProperty(&quot;name&quot;)
+  private String name;
+
+  @JsonProperty(&quot;price&quot;)
+  private Double price;
+
+  @JsonProperty(&quot;type&quot;)
+  private String type;
+
+  /**
+   * Construct a SideItem with the given id, name, price, and type.
+   *
+   * @param id side's unique identifier
+   * @param name name of side item
+   * @param price price of side item
+   * @param type the type of side item: drink, condiment, or appetizer
+   */
+<span class="fc" id="L47">  public SideItem(String id, String name, Double price, String type) {</span>
+<span class="fc" id="L48">    this.id = id;</span>
+<span class="fc" id="L49">    this.name = name;</span>
+<span class="fc" id="L50">    this.price = price;</span>
+<span class="fc" id="L51">    this.type = type;</span>
+<span class="fc" id="L52">  }</span>
+
+  /**
+   * Initialize SideItemRepository by adding the 21 sides to the database.
+   * @param sideItemRepository repository for SideItem storage
+   */
+  public static void initialize(SideItemRepository sideItemRepository) {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">    if(sideItemRepository.count() == 0) {</span>
+<span class="fc" id="L60">      sideItemRepository.insert(DBSideItems.BREADSTICKS);</span>
+<span class="fc" id="L61">      sideItemRepository.insert(DBSideItems.CHEESE_STICKS);</span>
+<span class="fc" id="L62">      sideItemRepository.insert(DBSideItems.BARBECUE_WINGS);</span>
+<span class="fc" id="L63">      sideItemRepository.insert(DBSideItems.HOT_WINGS);</span>
+<span class="fc" id="L64">      sideItemRepository.insert(DBSideItems.UNSAUCED_WINGS);</span>
+<span class="fc" id="L65">      sideItemRepository.insert(DBSideItems.BARBECUE_SAUCE);</span>
+<span class="fc" id="L66">      sideItemRepository.insert(DBSideItems.HOT_SAUCE);</span>
+<span class="fc" id="L67">      sideItemRepository.insert(DBSideItems.MARINARA_SAUCE);</span>
+<span class="fc" id="L68">      sideItemRepository.insert(DBSideItems.RANCH_SAUCE);</span>
+<span class="fc" id="L69">      sideItemRepository.insert(DBSideItems.GRATED_CHEESE);</span>
+<span class="fc" id="L70">      sideItemRepository.insert(DBSideItems.RED_PEPPER_FLAKES);</span>
+<span class="fc" id="L71">      sideItemRepository.insert(DBSideItems.BROWNIE);</span>
+<span class="fc" id="L72">      sideItemRepository.insert(DBSideItems.CHOCOLATE_CHIP_COOKIE);</span>
+<span class="fc" id="L73">      sideItemRepository.insert(DBSideItems.BIG_COKE);</span>
+<span class="fc" id="L74">      sideItemRepository.insert(DBSideItems.BIG_PEACH_CRUSH);</span>
+<span class="fc" id="L75">      sideItemRepository.insert(DBSideItems.BIG_SPRITE);</span>
+<span class="fc" id="L76">      sideItemRepository.insert(DBSideItems.BIG_WATER);</span>
+<span class="fc" id="L77">      sideItemRepository.insert(DBSideItems.SMALL_COKE);</span>
+<span class="fc" id="L78">      sideItemRepository.insert(DBSideItems.SMALL_PEACH_CRUSH);</span>
+<span class="fc" id="L79">      sideItemRepository.insert(DBSideItems.SMALL_SPRITE);</span>
+<span class="fc" id="L80">      sideItemRepository.insert(DBSideItems.SMALL_WATER);</span>
+<span class="fc" id="L81">      sideItemRepository.save(DBSideItems.BREADSTICKS);</span>
+<span class="fc" id="L82">      sideItemRepository.save(DBSideItems.CHEESE_STICKS);</span>
+<span class="fc" id="L83">      sideItemRepository.save(DBSideItems.BARBECUE_WINGS);</span>
+<span class="fc" id="L84">      sideItemRepository.save(DBSideItems.HOT_WINGS);</span>
+<span class="fc" id="L85">      sideItemRepository.save(DBSideItems.UNSAUCED_WINGS);</span>
+<span class="fc" id="L86">      sideItemRepository.save(DBSideItems.BARBECUE_SAUCE);</span>
+<span class="fc" id="L87">      sideItemRepository.save(DBSideItems.HOT_SAUCE);</span>
+<span class="fc" id="L88">      sideItemRepository.save(DBSideItems.MARINARA_SAUCE);</span>
+<span class="fc" id="L89">      sideItemRepository.save(DBSideItems.RANCH_SAUCE);</span>
+<span class="fc" id="L90">      sideItemRepository.save(DBSideItems.GRATED_CHEESE);</span>
+<span class="fc" id="L91">      sideItemRepository.save(DBSideItems.RED_PEPPER_FLAKES);</span>
+<span class="fc" id="L92">      sideItemRepository.save(DBSideItems.BROWNIE);</span>
+<span class="fc" id="L93">      sideItemRepository.save(DBSideItems.CHOCOLATE_CHIP_COOKIE);</span>
+<span class="fc" id="L94">      sideItemRepository.save(DBSideItems.BIG_COKE);</span>
+<span class="fc" id="L95">      sideItemRepository.save(DBSideItems.BIG_PEACH_CRUSH);</span>
+<span class="fc" id="L96">      sideItemRepository.save(DBSideItems.BIG_SPRITE);</span>
+<span class="fc" id="L97">      sideItemRepository.save(DBSideItems.BIG_WATER);</span>
+<span class="fc" id="L98">      sideItemRepository.save(DBSideItems.SMALL_COKE);</span>
+<span class="fc" id="L99">      sideItemRepository.save(DBSideItems.SMALL_PEACH_CRUSH);</span>
+<span class="fc" id="L100">      sideItemRepository.save(DBSideItems.SMALL_SPRITE);</span>
+<span class="fc" id="L101">      sideItemRepository.save(DBSideItems.SMALL_WATER);</span>
+    }
+<span class="fc" id="L103">  }</span>
+
+  /**
+   * Get side's id.
+   *
+   * @return side's id.
+   */
+  @ApiModelProperty(example = &quot;hotWings&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getId() {
+<span class="fc" id="L114">    return id;</span>
+  }
+
+  /**
+   * Set side's id.
+   *
+   * @param id side's id
+   */
+  public void setId(String id) {
+<span class="fc" id="L123">    this.id = id;</span>
+<span class="fc" id="L124">  }</span>
+
+  /**
+   * Get side's name.
+   *
+   * @return side's name.
+   */
+  @ApiModelProperty(example = &quot;Hot wings&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getName() {
+<span class="fc" id="L135">    return name;</span>
+  }
+
+  /**
+   * Set side's name.
+   *
+   * @param name side's name
+   */
+  public void setName(String name) {
+<span class="fc" id="L144">    this.name = name;</span>
+<span class="fc" id="L145">  }</span>
+
+  /**
+   * Get side's price.
+   *
+   * @return side's price.
+   */
+  @ApiModelProperty(example = &quot;3.89&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public Double getPrice() {
+<span class="fc" id="L156">    return price;</span>
+  }
+
+  /**
+   * Set side's price.
+   *
+   * @param price side's price
+   */
+  public void setPrice(Double price) {
+<span class="fc" id="L165">    this.price = price;</span>
+<span class="fc" id="L166">  }</span>
+
+  /**
+   * Get side's type.
+   *
+   * @return side's type.
+   */
+  @ApiModelProperty(example = &quot;condiment&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getType() {
+<span class="fc" id="L177">    return type;</span>
+  }
+
+  /**
+   * Set side's type.
+   *
+   * @param type side's type
+   */
+  public void setType(String type) {
+<span class="fc" id="L186">    this.type = type;</span>
+<span class="fc" id="L187">  }</span>
+
+  /**
+   * Indicates whether some other object is &quot;equal to&quot; this one.
+   *
+   * @param obj - the reference object with which to compare
+   * @return {@code true} if this object is the same as the obj argument and {@code false}
+   *     otherwise.
+   */
+  @Override
+  public boolean equals(java.lang.Object o) {
+<span class="fc bfc" id="L198" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L199">      return true;</span>
+    }
+<span class="fc bfc" id="L201" title="All 4 branches covered.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="fc" id="L202">      return false;</span>
+    }
+<span class="fc" id="L204">    SideItem sideItem = (SideItem) o;</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">    return Objects.equals(this.id, sideItem.id)</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">        &amp;&amp; Objects.equals(this.name, sideItem.name)</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">        &amp;&amp; Objects.equals(this.price, sideItem.price)</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">        &amp;&amp; Objects.equals(this.type, sideItem.type);</span>
+  }
+
+  /**
+   * Returns a hash code value for a SideItem.
+   *
+   * @return hash code value for a SideItem.
+   */
+  @Override
+  public int hashCode() {
+<span class="fc" id="L218">    return Objects.hash(id, name, price, type);</span>
+  }
+
+  /**
+   * Returns a string representation of a SideItem. Format - SideItem{id='sideItemId',
+   * name='sideItemName', price='sideItemPrice', type='sideItemPrice'}
+   *
+   * @return string representation of a SideItem.
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L229">    return &quot;SideItem{&quot;</span>
+        + &quot;id='&quot;
+        + id
+        + '\''
+        + &quot;, name='&quot;
+        + name
+        + '\''
+        + &quot;, price='&quot;
+        + price
+        + '\''
+        + &quot;, type='&quot;
+        + type
+        + '\''
+        + '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StoreItem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pizza-paradise</a> &gt; <a href="index.source.html" class="el_package">io.swagger.model</a> &gt; <span class="el_source">StoreItem.java</span></div><h1>StoreItem.java</h1><pre class="source lang-java linenums">package io.swagger.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.DBStoreItems;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.repository.StoreItemRepository;
+import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.validation.annotation.Validated;
+
+/** StoreItem */
+@Validated
+@javax.annotation.Generated(
+    value = &quot;io.swagger.codegen.v3.generators.java.SpringCodegen&quot;,
+    date = &quot;2019-09-26T03:54:46.062Z[GMT]&quot;)
+@ApiModel
+@Document(collection = &quot;StoreItem&quot;)
+public class StoreItem {
+
+  @JsonProperty(&quot;id&quot;)
+  private String id;
+
+  @JsonProperty(&quot;streetNumAndName&quot;)
+  private String streetNumAndName;
+
+  @JsonProperty(&quot;city&quot;)
+  private String city;
+
+  @JsonProperty(&quot;state&quot;)
+  private String state;
+
+  @JsonProperty(&quot;zipCode&quot;)
+  private String zipCode;
+
+  @JsonProperty(&quot;offersGlutenFree&quot;)
+  private boolean offersGlutenFree;
+
+  /**
+   * Construct a StoreItem with the given id, street, city, state, zip code, and gluten free
+   * offering.
+   *
+   * @param id store's unique identifier
+   * @param streetNumAndName street portion of store's address
+   * @param city city portion of store's address
+   * @param state state portion of store's address
+   * @param zipCode zip code portion of store's address
+   * @param offersGlutenFree whether store offers gluten free pizza
+   */
+  public StoreItem(
+      String id,
+      String streetNumAndName,
+      String city,
+      String state,
+      String zipCode,
+      boolean offersGlutenFree) {
+<span class="fc" id="L59">    super();</span>
+<span class="fc" id="L60">    this.id = id;</span>
+<span class="fc" id="L61">    this.streetNumAndName = streetNumAndName;</span>
+<span class="fc" id="L62">    this.city = city;</span>
+<span class="fc" id="L63">    this.state = state;</span>
+<span class="fc" id="L64">    this.zipCode = zipCode;</span>
+<span class="fc" id="L65">    this.offersGlutenFree = offersGlutenFree;</span>
+<span class="fc" id="L66">  }</span>
+
+  /**
+   * Initialize StoreItemRepository by adding the 3 stores to the database.
+   * @param storeItemRepository repository for StoreItem storage
+   */
+  public static void initialize(StoreItemRepository storeItemRepository) {
+<span class="fc bfc" id="L73" title="All 2 branches covered.">    if(storeItemRepository.count() == 0) {</span>
+<span class="fc" id="L74">      storeItemRepository.insert(DBStoreItems.BROOKLYN_STORE);</span>
+<span class="fc" id="L75">      storeItemRepository.insert(DBStoreItems.EASTLAKE_STORE);</span>
+<span class="fc" id="L76">      storeItemRepository.insert(DBStoreItems.STONE_WAY_STORE);</span>
+<span class="fc" id="L77">      storeItemRepository.save(DBStoreItems.BROOKLYN_STORE);</span>
+<span class="fc" id="L78">      storeItemRepository.save(DBStoreItems.EASTLAKE_STORE);</span>
+<span class="fc" id="L79">      storeItemRepository.save(DBStoreItems.STONE_WAY_STORE);</span>
+    }
+<span class="fc" id="L81">  }</span>
+
+  /**
+   * Get store's id.
+   *
+   * @return store's id.
+   */
+  @ApiModelProperty(example = &quot;pike&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getId() {
+<span class="fc" id="L92">    return id;</span>
+  }
+
+  /**
+   * Set store's id.
+   *
+   * @param id store's id
+   */
+  public void setId(String id) {
+<span class="fc" id="L101">    this.id = id;</span>
+<span class="fc" id="L102">  }</span>
+
+  /**
+   * Get store's street number and name.
+   *
+   * @return store's street number and name.
+   */
+  @ApiModelProperty(example = &quot;123 Main St&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getStreetNumAndName() {
+<span class="fc" id="L113">    return streetNumAndName;</span>
+  }
+
+  /**
+   * Set store's street number and name.
+   *
+   * @param streetNumAndName store's street number and name
+   */
+  public void setStreetNumAndName(String streetNumAndName) {
+<span class="fc" id="L122">    this.streetNumAndName = streetNumAndName;</span>
+<span class="fc" id="L123">  }</span>
+
+  /**
+   * Get store's city.
+   *
+   * @return store's city.
+   */
+  @ApiModelProperty(example = &quot;Oakland&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getCity() {
+<span class="fc" id="L134">    return city;</span>
+  }
+
+  /**
+   * Set store's city.
+   *
+   * @param city city for the store's address
+   */
+  public void setCity(String city) {
+<span class="fc" id="L143">    this.city = city;</span>
+<span class="fc" id="L144">  }</span>
+
+  /**
+   * Get store's state.
+   *
+   * @return store's state.
+   */
+  @ApiModelProperty(example = &quot;California&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getState() {
+<span class="fc" id="L155">    return state;</span>
+  }
+
+  /**
+   * Set store's state.
+   *
+   * @param state state for the store's address
+   */
+  public void setState(String state) {
+<span class="fc" id="L164">    this.state = state;</span>
+<span class="fc" id="L165">  }</span>
+
+  /**
+   * Get store's zip code.
+   *
+   * @return store's zip code.
+   */
+  @ApiModelProperty(example = &quot;94608&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public String getZipCode() {
+<span class="fc" id="L176">    return zipCode;</span>
+  }
+
+  /**
+   * Set store's zip code.
+   *
+   * @param zipCode zip code for the store's address
+   */
+  public void setZipCode(String zipCode) {
+<span class="fc" id="L185">    this.zipCode = zipCode;</span>
+<span class="fc" id="L186">  }</span>
+
+  /**
+   * Get store's offersGlutenFree value.
+   *
+   * @return {@code true} if store offers gluten free pizza and {@code false} otherwwise.
+   */
+  @ApiModelProperty(example = &quot;false&quot;, required = true, value = &quot;&quot;)
+  @NotNull
+  @Valid
+  public boolean getOffersGlutenFree() {
+<span class="fc" id="L197">    return offersGlutenFree;</span>
+  }
+
+  /**
+   * Set whether store offers gluten free pizza.
+   *
+   * @param offersGlutenFree store's value for offering gluten free pizza
+   */
+  public void setOffersGlutenFree(boolean offersGlutenFree) {
+<span class="fc" id="L206">    this.offersGlutenFree = offersGlutenFree;</span>
+<span class="fc" id="L207">  }</span>
+
+  /**
+   * Indicates whether some other object is &quot;equal to&quot; this one.
+   *
+   * @param obj - the reference object with which to compare
+   * @return {@code true} if this object is the same as the obj argument and {@code false}
+   *     otherwise.
+   */
+  @Override
+  public boolean equals(java.lang.Object o) {
+<span class="fc bfc" id="L218" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L219">      return true;</span>
+    }
+<span class="fc bfc" id="L221" title="All 4 branches covered.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="fc" id="L222">      return false;</span>
+    }
+<span class="fc" id="L224">    StoreItem storeItem = (StoreItem) o;</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">    return Objects.equals(this.id, storeItem.id)</span>
+<span class="fc bfc" id="L226" title="All 2 branches covered.">        &amp;&amp; Objects.equals(this.streetNumAndName, storeItem.streetNumAndName)</span>
+<span class="fc bfc" id="L227" title="All 2 branches covered.">        &amp;&amp; Objects.equals(this.city, storeItem.city)</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">        &amp;&amp; Objects.equals(this.state, storeItem.state)</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">        &amp;&amp; Objects.equals(this.zipCode, storeItem.zipCode)</span>
+<span class="fc bfc" id="L230" title="All 2 branches covered.">        &amp;&amp; Objects.equals(this.offersGlutenFree, storeItem.offersGlutenFree);</span>
+  }
+
+  /**
+   * Returns a hash code value for a StoreItem.
+   *
+   * @return hash code value for a StoreItem.
+   */
+  @Override
+  public int hashCode() {
+<span class="fc" id="L240">    return Objects.hash(id, streetNumAndName, city, state, zipCode, offersGlutenFree);</span>
+  }
+
+  /**
+   * Returns a string representation of a StoreItem. Format - StoreItem{id='storeItemId',
+   * streetNumAndName='storeItemStreetNumAndName', city='storeItemCity', state='storeItemState',
+   * zipCode='storeItemZipCode', offersGlutenFree='trueOrFalse'}
+   *
+   * @return string representation of a StoreItem.
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L252">    return &quot;StoreItem{&quot;</span>
+        + &quot;id='&quot;
+        + id
+        + '\''
+        + &quot;, streetNumAndName='&quot;
+        + streetNumAndName
+        + '\''
+        + &quot;, city='&quot;
+        + city
+        + '\''
+        + &quot;, state='&quot;
+        + state
+        + '\''
+        + &quot;, zipCode='&quot;
+        + zipCode
+        + '\''
+        + &quot;, offersGlutenFree='&quot;
+        + offersGlutenFree
+        + '\''
+        + '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

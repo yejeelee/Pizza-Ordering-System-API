@@ -1,0 +1,21 @@
+# Created at 2019-12-04T19:21:33.967
+TestSet has not finished before stream error has appeared >> initializing exit by non-null configuration: DEFAULT
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.maven.surefire.booter.MasterProcessCommand.decode(MasterProcessCommand.java:122)
+	at org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:391)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+# Created at 2019-12-04T19:21:34.011
+Unexpected IOException with stream: 2019-12-04 19:21:33.966  INFO 30077 --- [           main] io.swagger.api.SpecialApiTests           : Starting SpecialApiTests on Yejees-MacBook-Pro.local with PID 30077 (started by yejeelee in /Users/yejeelee/Desktop/cs5500/pizza-paradise)
+
+
+# Created at 2019-12-04T19:21:34.060
+Unexpected IOException with stream: 2019-12-04 19:21:34.059  INFO 30077 --- [           main] io.swagger.api.SpecialApiTests           : The following profiles are active: test
+
+
+# Created at 2019-12-04T19:21:34.082
+Unexpected IOException with stream: 2019-12-04 19:21:34.080  INFO 30077 --- [       Thread-3] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+
+
