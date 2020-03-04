@@ -44,4 +44,4 @@ _ This is how much code I wrote during this project.
 - this is how much PR we made throughout the project. We never directly push to origin master. Instead, we always created seperate branch and make PR and have another peer review the code before pushing to the master. 
 ![PR](made-PR.png)
 - This is how much commits I made through the project. 
-![commit](made-commit.png)
+![commit](made-commits.png)
