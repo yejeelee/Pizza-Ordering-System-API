@@ -39,5 +39,9 @@ A summary of the entire project may be viewed on the
     3. Test the skill in Voice flow or click Upload to Alexa to test in the Alexa Developer console
     
 #### Using Github as a team
-
+_ This is how much code I wrote during this project.
+![code](made-code.png)
+- this is how much PR we made throughout the project. We never directly push to origin master. Instead, we always created seperate branch and make PR and have another peer review the code before pushing to the master. 
 ![PR](made-PR.png)
+- This is how much commits I made through the project. 
+![commit](made-commit.png)
