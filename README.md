@@ -5,6 +5,7 @@ Team of Three: Clara, Jada, YeJee Jenny Lee
 
 This repository contains code for the Pizza Paradise API, an API that supports a pizza store. The API can be viewed live on the
 [user interface](https://pizza-paradise.herokuapp.com/swagger-ui.html). 
+https://pizza-paradise.herokuapp.com/swagger-ui.html
 
 A front-end service was built using this API, and that 
 [Alexa skill](https://www.amazon.com/gp/product/B082HD11RB?pf_rd_p=ab873d20-a0ca-439b-ac45-cd78f07a84d8&pf_rd_r=F1K5QCJNA4V1F3YXQSVS)
